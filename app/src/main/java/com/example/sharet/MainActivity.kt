@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
             setView(dialogBinding?.root)
             setCancelable(false)
         }.show()
-/*
-        dialogBinding?.btnOk?.setOnClickListener {
+
+        dialogBinding?.submitCreateResourceButton?.setOnClickListener {
             customDialog.dismiss()
-        }*/
+        }
     }
 }
