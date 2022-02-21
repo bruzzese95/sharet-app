@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingEnd="20dp">
+
+    <TextView
+        android:id="@+id/resource_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/roboto"
+        android:textSize="20sp" />
+
+
+    <!--posibility to add a button that displays if the resource is available-->
+    <!--<Button
+        android:id="@+id/state_resource_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="FREE"
+        android:textSize="10sp" />-->
+
+</LinearLayout>

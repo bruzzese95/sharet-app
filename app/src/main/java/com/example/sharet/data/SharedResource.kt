@@ -1,7 +1,12 @@
 package com.example.sharet.data
 
-class SharedResource {
-    lateinit var name : String
-    /*lateinit var owner: String
-    lateinit var group: List<String>*/
+class SharedResource(val name: String) {
+
+    companion object {
+        fun createResourcesList(resourceName: String) : ArrayList<SharedResource> {
+            val resources = ArrayList<SharedResource>()
+            resources.add(SharedResource(name = resourceName))
+            return resources
+        }
+    }
 }
