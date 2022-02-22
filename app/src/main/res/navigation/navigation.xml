@@ -17,5 +17,9 @@
     <dialog
         android:id="@+id/customDialog"
         android:name="com.example.sharet.CustomDialog"
-        android:label="CustomDialog" />
+        android:label="CustomDialog" >
+        <action
+            android:id="@+id/action_customDialog_to_sharedResourceFragment"
+            app:destination="@id/sharedResourceFragment" />
+    </dialog>
 </navigation>
