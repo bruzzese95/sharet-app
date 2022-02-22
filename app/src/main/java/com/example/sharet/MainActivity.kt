@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,17 +13,16 @@ import com.example.sharet.databinding.ActivityMainBinding
 import com.example.sharet.databinding.CustomDialogAddResourceBinding
 
 class MainActivity : AppCompatActivity() {
-
-    private var activityMainBinding: ActivityMainBinding? = null
-
+/*
     lateinit var resources: ArrayList<SharedResource>
-    lateinit var adapter: SharedResourceAdapter
+    lateinit var adapter: SharedResourceAdapter*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        @Suppress("UNUSED_VARIABLE")
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        activityMainBinding?.addResourceButton?.setOnClickListener {
+        /*binding?.addResourceButton?.setOnClickListener {
             showCustomDialog()
         }
 
@@ -38,16 +36,11 @@ class MainActivity : AppCompatActivity() {
         rvResources.adapter = adapter
         // Set layout manager to position the items
         rvResources.layoutManager = LinearLayoutManager(this)
-        // That's all!
+        // That's all!*/
 
     }
 
-    override fun onDestroy() {
-        activityMainBinding = null
-        super.onDestroy()
-    }
-
-    private fun showCustomDialog() {
+    /*private fun showCustomDialog() {
         val dialogBinding: CustomDialogAddResourceBinding? =
             DataBindingUtil.inflate(
                 LayoutInflater.from(this),
@@ -69,5 +62,5 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
             customDialog.dismiss()
         }
-    }
+    }*/
 }
