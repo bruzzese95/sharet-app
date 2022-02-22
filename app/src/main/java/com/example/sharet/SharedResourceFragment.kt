@@ -24,6 +24,12 @@ class SharedResourceFragment : Fragment() {
         val binding: FragmentSharedResourceBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_shared_resource,
             container, false)
         binding.addResourceButton.setOnClickListener (Navigation.createNavigateOnClickListener(R.id.action_sharedResourceFragment_to_customDialog))
+
+        val adapter = SharedResourceAdapter()
+        binding.rvSharedResource.adapter = adapter
+
+        //implement observe with view model
+
         return binding.root
     }
 }
