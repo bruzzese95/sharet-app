@@ -10,7 +10,7 @@ import androidx.room.Update
 interface SharedResourceDatabaseDao {
 
     @Insert
-    fun insert(sharedResource: SharedResource)
+    suspend fun insert(sharedResource: SharedResource)
 
 
     /**
@@ -20,7 +20,7 @@ interface SharedResourceDatabaseDao {
      * @param sharedResource new value to write
      */
     @Update
-    fun update(sharedResource: SharedResource)
+    suspend fun update(sharedResource: SharedResource)
 
     /**
      * Selects and returns the row that matches the id of the resource, which is our key.
@@ -28,7 +28,7 @@ interface SharedResourceDatabaseDao {
      * @param key resource id to match
      */
     @Query("SELECT * from shared_resource_table WHERE resourceId = :key")
-    fun get(key: Long): SharedResource?
+    suspend fun get(key: Long): SharedResource?
 
     /**
      * Selects and returns all rows in the table
@@ -40,7 +40,7 @@ interface SharedResourceDatabaseDao {
      * Selects and returns the latest resource.
      */
     @Query("SELECT * FROM shared_resource_table ORDER BY resourceId DESC LIMIT 1")
-    fun getResource(): SharedResource?
+    suspend fun getResource(): SharedResource?
 
     /**
      * Selects and returns the resource with given name.

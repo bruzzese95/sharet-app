@@ -62,7 +62,6 @@ class SharedResourceFragment : Fragment() {
                 sharedResourceViewModel.doneNavigating()
             }
         })
-
         sharedResourceViewModel.navigateToCustomDataDialog.observe(viewLifecycleOwner, Observer { resource ->
             resource?.let {
                 this.findNavController().navigate(
