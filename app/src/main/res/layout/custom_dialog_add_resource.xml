@@ -5,7 +5,7 @@
     <data>
         <variable
             name="dialog"
-            type="com.example.sharet.CustomDialog" />
+            type="com.example.sharet.customdialog.CustomDialogFragment" />
     </data>
 
     <LinearLayout

@@ -3,23 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/sharedResourceFragment">
+    app:startDestination="@id/shared_resource_fragment">
 
     <fragment
-        android:id="@+id/sharedResourceFragment"
-        android:name="com.example.sharet.SharedResourceFragment"
+        android:id="@+id/shared_resource_fragment"
+        android:name="com.example.sharet.sharedresource.SharedResourceFragment"
         android:label="fragment_shared_resource"
         tools:layout="@layout/fragment_shared_resource" >
         <action
             android:id="@+id/action_sharedResourceFragment_to_customDialog"
-            app:destination="@id/customDialog" />
+            app:destination="@id/custom_dialog" />
     </fragment>
     <dialog
-        android:id="@+id/customDialog"
-        android:name="com.example.sharet.CustomDialog"
+        android:id="@+id/custom_dialog"
+        android:name="com.example.sharet.customdialog.CustomDialogFragment"
         android:label="CustomDialog" >
         <action
             android:id="@+id/action_customDialog_to_sharedResourceFragment"
-            app:destination="@id/sharedResourceFragment" />
+            app:destination="@id/shared_resource_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/shared_resource_fragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="sharedResourceKey"
+            app:argType="long" />
     </dialog>
 </navigation>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="resource"
+            type="com.example.sharet.database.SharedResource" />
+
+        <variable
+            name="clickListener"
+            type="com.example.sharet.sharedresource.SharedResourceListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:onClick="@{() -> clickListener.onClick(resource)}">
+
+        <ImageView
+            android:id="@+id/resource_img"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@android:drawable/star_on"/>
+
+        <TextView
+            android:id="@+id/resource_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/resource_img"
+            app:layout_constraintStart_toStartOf="@+id/resource_img"
+            app:layout_constraintTop_toBottomOf="@+id/resource_img"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

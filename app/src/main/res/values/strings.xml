@@ -10,4 +10,5 @@
     <string name="create_resource">Create your shared resource</string>
     <string name="name">Name</string>
     <string name="create">Create</string>
+    <string name="shared_resource_results">Shared Resource Results</string>
 </resources>
