@@ -5,14 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sharet.database.SharedResource
+import com.example.sharet.database.SharedResourceDatabaseDao
 import kotlinx.coroutines.launch
 
-class CustomDialogViewModel: ViewModel() {
-
-    // The current name of the resource
-    private val _name = MutableLiveData<String>()
-    val name: LiveData<String>
-        get() = _name
+class CustomDialogViewModel(
+    private val sharedResourceKey: Long = 0L,
+    val database: SharedResourceDatabaseDao) : ViewModel() {
 
     private val _navigateToSharedResource = MutableLiveData<Boolean?>()
     val navigateToSharedResource: LiveData<Boolean?>
@@ -22,10 +20,13 @@ class CustomDialogViewModel: ViewModel() {
         _navigateToSharedResource.value = null
     }
 
-    /*fun onSetSharedResource(name: String) {
+    fun onSetSharedResourceName(name: String) {
         viewModelScope.launch {
-            SharedResourceViewModel().resources.add(SharedResource(name))
+            val resource = database.get(sharedResourceKey) ?: return@launch
+            resource.resourceName = name
+            database.update(resource)
+
             _navigateToSharedResource.value = true
         }
-    }*/
+    }
 }

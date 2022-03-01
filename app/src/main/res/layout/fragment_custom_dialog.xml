@@ -4,15 +4,16 @@
 
     <data>
         <variable
-            name="dialog"
-            type="com.example.sharet.customdialog.CustomDialogFragment" />
+            name="customDialogViewModel"
+            type="com.example.sharet.customdialog.CustomDialogViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/round_corner">
+        android:background="@drawable/round_corner"
+        tools:context=".customdialog.CustomDialogFragment">
 
     <TextView
         android:id="@+id/create_resource_text"
