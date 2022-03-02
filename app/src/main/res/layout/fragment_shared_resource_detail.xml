@@ -21,14 +21,12 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/resource_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.025"
             app:sharedResourceImage="@{sharedResourceDetailViewModel.resource}" />
 
         <TextView
@@ -37,12 +35,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="356dp"
-            android:textSize="24sp"
+            android:layout_marginBottom="456dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/button"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resource_image"
+            app:layout_constraintVertical_bias="0.126"
             app:sharedResourceName="@{sharedResourceDetailViewModel.resource}" />
+
 
         <Button
             android:id="@+id/button"
