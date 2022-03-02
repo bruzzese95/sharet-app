@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_sharedResourceFragment_to_customDialogFragment"
             app:destination="@id/custom_dialog" />
+        <action
+            android:id="@+id/action_shared_resource_fragment_to_sharedResourceDetailFragment"
+            app:destination="@id/sharedResourceDetailFragment" />
     </fragment>
     <dialog
         android:id="@+id/custom_dialog"
@@ -25,4 +28,15 @@
             app:popUpTo="@id/shared_resource_fragment"
             app:popUpToInclusive="true" />
     </dialog>
+    <fragment
+        android:id="@+id/sharedResourceDetailFragment"
+        android:name="com.example.sharet.sharedresourcedetail.SharedResourceDetailFragment"
+        android:label="SharedResourceDetailFragment" >
+        <action
+            android:id="@+id/action_sharedResourceDetailFragment_to_shared_resource_fragment"
+            app:destination="@id/shared_resource_fragment" />
+        <argument
+            android:name="sharedResourceKey"
+            app:argType="long" />
+    </fragment>
 </navigation>

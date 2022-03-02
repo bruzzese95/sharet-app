@@ -30,17 +30,17 @@ class SharedResourceViewModel(
         _navigateToCustomDialog.value = null
     }
 
-    /*private val _navigateToSharedResourceData : MutableLiveData<Long> = MutableLiveData()
-    val navigateToSharedResourceData
-        get() = _navigateToSharedResourceData*/
+    private val _navigateToSharedResourceDetail = MutableLiveData<Long>()
+    val navigateToSharedResourceDetail
+        get() = _navigateToSharedResourceDetail
 
-    /*fun onAddButtonClicked(id: Long) {
-        _navigateToSharedResourceData.value = id
+    fun onAddButtonClicked(id: Long) {
+        _navigateToSharedResourceDetail.value = id
     }
 
-    fun onSharedResourceDataNavigated() {
-        _navigateToSharedResourceData.value = null
-    }*/
+    fun onSharedResourceDetailNavigated() {
+        _navigateToSharedResourceDetail.value = null
+    }
 
     init {
         initializeSharedResource()

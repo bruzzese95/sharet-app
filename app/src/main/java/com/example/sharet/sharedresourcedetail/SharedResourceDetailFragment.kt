@@ -1,4 +1,3 @@
-/*
 package com.example.sharet.sharedresourcedetail
 
 import android.os.Bundle
@@ -24,7 +23,7 @@ class SharedResourceDetailFragment : Fragment() {
             inflater, R.layout.fragment_shared_resource_detail, container, false)
 
         val application = requireNotNull(this.activity).application
-        val arguments = SharedResourceDetailFragmentArgs.fromBundle(requireArguments())
+        val arguments = SharedResourceDetailFragmentArgs.fromBundle(arguments!!)
 
         // Create an instance of the ViewModel Factory.
         val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
@@ -55,4 +54,4 @@ class SharedResourceDetailFragment : Fragment() {
 
         return binding.root
     }
-}*/
+}
