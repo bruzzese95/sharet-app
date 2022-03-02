@@ -24,11 +24,10 @@ class CustomDialogFragment: DialogFragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val arguments = CustomDialogFragmentArgs.fromBundle(requireArguments())     //use of arguments!!
 
         //Create an instance of the ViewModelFactory
         val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
-        val viewModelFactory = CustomDialogViewModelFactory(arguments.sharedResourceKey, dataSource)
+        val viewModelFactory = CustomDialogViewModelFactory(dataSource)
 
         //Get a reference to the ViewModel associated with this fragment
         val customDialogViewModel =
@@ -42,21 +41,17 @@ class CustomDialogFragment: DialogFragment() {
 
         customDialogViewModel.navigateToSharedResource.observe(viewLifecycleOwner, Observer {
             if (it == true) {
-                this.findNavController().navigate(
-                    CustomDialogFragmentDirections.actionCustomDialogToSharedResourceFragment())
-
                 customDialogViewModel.doneNavigating()
             }
         })
 
 
         binding.submitCreateResourceButton.setOnClickListener { view: View ->
-            customDialogViewModel.onSetSharedResourceName("Macchina di prova")
-            //Log.i("NAME PASSED: ", binding.nameResource.toString())
+            customDialogViewModel.onSetSharedResourceName(binding.nameResource.text.toString())
 
             this.findNavController().navigate(CustomDialogFragmentDirections.actionCustomDialogToSharedResourceFragment())
-            customDialogViewModel.doneNavigating()
         }
+
 
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.round_corner);
 

@@ -11,5 +11,5 @@ data class SharedResource(
     var resourceId: Long = 0L,
 
     @ColumnInfo(name = "resource_name")
-    var resourceName: String = ""
+    var resourceName: String = "not_initialized"
 )

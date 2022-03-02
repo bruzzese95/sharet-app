@@ -21,8 +21,8 @@ class SharedResourceViewModel(
 
 
     //Variable that tells the Fragment to navigate to a specific [SharedResource]
-    private val _navigateToCustomDialog = MutableLiveData<SharedResource?>()
-    val navigateToCustomDialog: MutableLiveData<SharedResource?>
+    private val _navigateToCustomDialog = MutableLiveData<Boolean>()
+    val navigateToCustomDialog: LiveData<Boolean>
         get() = _navigateToCustomDialog
 
 
@@ -30,17 +30,17 @@ class SharedResourceViewModel(
         _navigateToCustomDialog.value = null
     }
 
-    private val _navigateToCustomDataDialog = MutableLiveData<Long?>()
-    val navigateToCustomDataDialog
-        get() = _navigateToCustomDataDialog
+    /*private val _navigateToSharedResourceData : MutableLiveData<Long> = MutableLiveData()
+    val navigateToSharedResourceData
+        get() = _navigateToSharedResourceData*/
 
-    fun onAddButtonClicked(id: Long) {
-        _navigateToCustomDataDialog.value = id
+    /*fun onAddButtonClicked(id: Long) {
+        _navigateToSharedResourceData.value = id
     }
 
-    fun onCustomDataDialogNavigated() {
-        _navigateToCustomDataDialog.value = null
-    }
+    fun onSharedResourceDataNavigated() {
+        _navigateToSharedResourceData.value = null
+    }*/
 
     init {
         initializeSharedResource()
@@ -59,19 +59,16 @@ class SharedResourceViewModel(
      *  If the start time and end time are not the same, then we do not have an unfinished
      *  recording.
      */
+
+
     private suspend fun getSharedResourceFromDatabase(): SharedResource? {
         var resource = database.getResource()
-        if (resource?.resourceName == "") {
+        if (!resource?.resourceName.equals("not_initialized")) {
             resource = null
         }
         return resource
     }
 
-    private suspend fun update(resource: SharedResource) {
-        withContext(Dispatchers.IO) {
-            database.update(resource)
-        }
-    }
 
     private suspend fun insert(resource: SharedResource) {
         withContext(Dispatchers.IO) {
@@ -79,16 +76,29 @@ class SharedResourceViewModel(
         }
     }
 
+    private suspend fun clear() {
+        withContext(Dispatchers.IO) {
+            database.clear()
+        }
+    }
 
     fun onAddResourceButton() {
         viewModelScope.launch {
-            val newResource = SharedResource()
 
-            insert(newResource)
+            _navigateToCustomDialog.value = true
+        }
+    }
 
-            resource.value = getSharedResourceFromDatabase()
+    /**
+     * Executes when the CLEAR button is clicked.
+     */
+    fun onClear() {
+        viewModelScope.launch {
+            // Clear the database table.
+            clear()
 
-            _navigateToCustomDialog.value = newResource
+            // And clear tonight since it's no longer in the database
+            resource.value = null
         }
     }
 }

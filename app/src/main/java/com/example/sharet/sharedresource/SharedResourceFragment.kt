@@ -21,8 +21,6 @@ import com.example.sharet.databinding.FragmentSharedResourceBinding
  */
 class SharedResourceFragment : Fragment() {
 
-    private lateinit var sharedResourceViewModel: SharedResourceViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
@@ -53,46 +51,21 @@ class SharedResourceFragment : Fragment() {
                 // popping the stack to get the correct behavior if we press stop multiple times
                 // followed by back.
                 this.findNavController().navigate(
-                    SharedResourceFragmentDirections.actionSharedResourceFragmentToCustomDialog(
-                        resource.resourceId
-                    )
+                    SharedResourceFragmentDirections.actionSharedResourceFragmentToCustomDialogFragment()
                 )
                 // Reset state to make sure we only navigate once, even if the device
                 // has a configuration change.
                 sharedResourceViewModel.doneNavigating()
             }
         })
-        sharedResourceViewModel.navigateToCustomDataDialog.observe(viewLifecycleOwner, Observer { resource ->
-            resource?.let {
-                this.findNavController().navigate(
-                    SharedResourceFragmentDirections.actionSharedResourceFragmentToCustomDialog(resource)
-                )
-                sharedResourceViewModel.onCustomDataDialogNavigated()
-            }
-        })
 
-        /*val manager = LinearLayoutManager(activity)
-        binding.rvSharedResource.layoutManager = manager*/
-
-        val manager = GridLayoutManager(activity, 3)
-        binding.rvSharedResource.layoutManager = manager
-
-        manager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int) =  when (position) {
-                0 -> 3
-                else -> 1
-            }
-        }
-
-        val adapter = SharedResourceAdapter(SharedResourceListener { resourceId ->
-            sharedResourceViewModel.onAddButtonClicked(resourceId)
-        })
+        val adapter = SharedResourceAdapter()
 
         binding.rvSharedResource.adapter = adapter
 
         sharedResourceViewModel.resources.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.addHeaderAndSubmitList(it)
+                adapter.data = it
             }
         })
 

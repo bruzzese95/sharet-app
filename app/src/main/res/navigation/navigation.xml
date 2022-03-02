@@ -11,7 +11,7 @@
         android:label="fragment_shared_resource"
         tools:layout="@layout/fragment_shared_resource" >
         <action
-            android:id="@+id/action_sharedResourceFragment_to_customDialog"
+            android:id="@+id/action_sharedResourceFragment_to_customDialogFragment"
             app:destination="@id/custom_dialog" />
     </fragment>
     <dialog
@@ -24,8 +24,5 @@
             app:launchSingleTop="false"
             app:popUpTo="@id/shared_resource_fragment"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="sharedResourceKey"
-            app:argType="long" />
     </dialog>
 </navigation>

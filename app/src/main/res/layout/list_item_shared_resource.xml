@@ -1,46 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <data>
+    <ImageView
+        android:id="@+id/resource_image"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_baseline_whatshot_24" />
 
-        <variable
-            name="resource"
-            type="com.example.sharet.database.SharedResource" />
+    <TextView
+        android:id="@+id/resource_name"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/resource_image"
+        app:layout_constraintTop_toTopOf="@+id/resource_image"
+        tools:text="Your shared resource" />
 
-        <variable
-            name="clickListener"
-            type="com.example.sharet.sharedresource.SharedResourceListener" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:onClick="@{() -> clickListener.onClick(resource)}">
-
-        <ImageView
-            android:id="@+id/resource_img"
-            android:layout_width="@dimen/icon_size"
-            android:layout_height="60dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@android:drawable/star_on"/>
-
-        <TextView
-            android:id="@+id/resource_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/resource_img"
-            app:layout_constraintStart_toStartOf="@+id/resource_img"
-            app:layout_constraintTop_toBottomOf="@+id/resource_img"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

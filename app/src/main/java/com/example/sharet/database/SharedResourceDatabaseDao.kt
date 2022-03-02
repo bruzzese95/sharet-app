@@ -31,6 +31,15 @@ interface SharedResourceDatabaseDao {
     suspend fun get(key: Long): SharedResource?
 
     /**
+     * Deletes all values from the table.
+     *
+     * This does not delete the table, only its contents.
+     */
+    @Query("DELETE FROM shared_resource_table")
+    suspend fun clear()
+
+
+    /**
      * Selects and returns all rows in the table
      */
     @Query("SELECT * FROM shared_resource_table ORDER BY resourceId DESC")
@@ -46,5 +55,5 @@ interface SharedResourceDatabaseDao {
      * Selects and returns the resource with given name.
      */
     @Query("SELECT * from shared_resource_table WHERE resourceId = :key")
-    fun getResourceWithName(key: Long): LiveData<SharedResource>
+    fun getResourceWithId(key: Long): LiveData<SharedResource>
 }

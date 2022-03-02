@@ -5,12 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sharet.database.SharedResourceDatabaseDao
 
 class CustomDialogViewModelFactory(
-    private val sharedResourceKey: Long,
     private val dataSource: SharedResourceDatabaseDao) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CustomDialogViewModel::class.java)) {
-            return CustomDialogViewModel(sharedResourceKey, dataSource) as T
+            return CustomDialogViewModel(dataSource) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
