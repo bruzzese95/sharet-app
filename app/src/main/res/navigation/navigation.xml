@@ -14,8 +14,8 @@
             android:id="@+id/action_sharedResourceFragment_to_customDialogFragment"
             app:destination="@id/custom_dialog" />
         <action
-            android:id="@+id/action_shared_resource_fragment_to_sharedResourceDetailFragment"
-            app:destination="@id/sharedResourceDetailFragment" />
+            android:id="@+id/action_shared_resource_fragment_to_sharedResourceCalendarFragment"
+            app:destination="@id/sharedResourceCalendarFragment" />
     </fragment>
     <dialog
         android:id="@+id/custom_dialog"
@@ -29,14 +29,11 @@
             app:popUpToInclusive="true" />
     </dialog>
     <fragment
-        android:id="@+id/sharedResourceDetailFragment"
-        android:name="com.example.sharet.sharedresourcedetail.SharedResourceDetailFragment"
-        android:label="SharedResourceDetailFragment" >
+        android:id="@+id/sharedResourceCalendarFragment"
+        android:name="com.example.sharet.sharedresourcecalendar.SharedResourceCalendarFragment"
+        android:label="SharedResourceCalendarFragment" >
         <action
-            android:id="@+id/action_sharedResourceDetailFragment_to_shared_resource_fragment"
+            android:id="@+id/action_sharedResourceCalendarFragment_to_shared_resource_fragment"
             app:destination="@id/shared_resource_fragment" />
-        <argument
-            android:name="sharedResourceKey"
-            app:argType="long" />
     </fragment>
 </navigation>

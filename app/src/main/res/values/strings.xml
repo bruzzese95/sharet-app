@@ -13,4 +13,10 @@
     <string name="shared_resource_results">Shared Resource List</string>
     <string name="close">Close</string>
     <string name="clear_text">Clear</string>
+    <string name="save">Save</string>
+    <string name="calendar_input_dialog_title">Enter event title</string>
+    <string name="calendar_empty_input_text">Text is empty</string>
+    <string name="calendar_dialog_delete_confirmation">Delete this event?</string>
+    <string name="delete">Delete</string>
+    <string name="calendar_title">Shared Resource Calendar</string>
 </resources>

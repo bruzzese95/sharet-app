@@ -1,4 +1,4 @@
-package com.example.sharet.sharedresourcedetail
+package com.example.sharet.sharedresourcecalendar
 
 import android.widget.ImageView
 import android.widget.TextView

@@ -1,4 +1,4 @@
-package com.example.sharet.sharedresourcedetail
+package com.example.sharet.sharedresourcecalendar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

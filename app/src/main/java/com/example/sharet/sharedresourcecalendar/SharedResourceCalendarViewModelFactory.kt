@@ -1,10 +1,10 @@
-package com.example.sharet.sharedresourcedetail
+package com.example.sharet.sharedresourcecalendar
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sharet.database.SharedResourceDatabaseDao
 
-class SharedResourceDetailViewModelFactory(
+class SharedResourceCalendarViewModelFactory(
         private val sharedResourceKey: Long,
         private val dataSource: SharedResourceDatabaseDao): ViewModelProvider.Factory{
     @Suppress("unchecked_cast")

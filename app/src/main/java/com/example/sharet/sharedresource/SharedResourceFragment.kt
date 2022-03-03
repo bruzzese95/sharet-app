@@ -64,7 +64,7 @@ class SharedResourceFragment : Fragment() {
         sharedResourceViewModel.navigateToSharedResourceDetail.observe(viewLifecycleOwner, Observer { resource ->
             resource?.let {
                 this.findNavController().navigate(
-                    SharedResourceFragmentDirections.actionSharedResourceFragmentToSharedResourceDetailFragment(resource)
+                    SharedResourceFragmentDirections.actionSharedResourceFragmentToSharedResourceCalendarFragment()
                 )
                 sharedResourceViewModel.onSharedResourceDetailNavigated()
             }
