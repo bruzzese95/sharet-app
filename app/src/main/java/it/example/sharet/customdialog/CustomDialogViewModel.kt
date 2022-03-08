@@ -1,11 +1,11 @@
-package com.example.sharet.customdialog
+package it.example.sharet.customdialog
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sharet.database.SharedResource
-import com.example.sharet.database.SharedResourceDatabaseDao
+import it.example.sharet.database.SharedResource
+import it.example.sharet.database.SharedResourceDatabaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

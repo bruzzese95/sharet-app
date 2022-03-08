@@ -1,4 +1,4 @@
-package com.example.sharet.database
+package it.example.sharet.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

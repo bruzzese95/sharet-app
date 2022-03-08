@@ -1,9 +1,9 @@
-package com.example.sharet.sharedresource
+package it.example.sharet.sharedresource
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sharet.database.SharedResourceDatabaseDao
+import it.example.sharet.database.SharedResourceDatabaseDao
 
 class SharedResourceViewModelFactory (
         private val dataSource: SharedResourceDatabaseDao,

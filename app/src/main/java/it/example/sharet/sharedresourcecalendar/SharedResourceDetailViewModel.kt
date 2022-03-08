@@ -1,11 +1,11 @@
-package com.example.sharet.sharedresourcecalendar
+package it.example.sharet.sharedresourcecalendar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sharet.database.SharedResource
-import com.example.sharet.database.SharedResourceDatabaseDao
+import it.example.sharet.database.SharedResource
+import it.example.sharet.database.SharedResourceDatabaseDao
 
 class SharedResourceDetailViewModel(
     private val sharedResourceKey: Long = 0L,

@@ -8,7 +8,7 @@
         
         <variable
             name="sharedResourceViewModel"
-            type="com.example.sharet.sharedresource.SharedResourceViewModel" />
+            type="it.example.sharet.sharedresource.SharedResourceViewModel" />
         
     </data>
 

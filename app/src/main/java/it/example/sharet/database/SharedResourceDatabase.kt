@@ -1,4 +1,4 @@
-package com.example.sharet.database
+package it.example.sharet.database
 
 import android.content.Context
 import androidx.room.Database

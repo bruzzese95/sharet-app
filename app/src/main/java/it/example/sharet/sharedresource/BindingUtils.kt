@@ -1,10 +1,10 @@
-package com.example.sharet.sharedresourcecalendar
+package it.example.sharet.sharedresourcecalendar
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.example.sharet.R
-import com.example.sharet.database.SharedResource
+import it.example.sharet.R
+import it.example.sharet.database.SharedResource
 
 @BindingAdapter("sharedResourceImage")
 fun ImageView.setSharedResourceImage(item: SharedResource?) {

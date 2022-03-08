@@ -1,4 +1,4 @@
-package com.example.sharet.customdialog
+package it.example.sharet.customdialog
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.sharet.R
-import com.example.sharet.database.SharedResourceDatabase
-import com.example.sharet.databinding.FragmentCustomDialogBinding
+import it.example.sharet.R
+import it.example.sharet.database.SharedResourceDatabase
+import it.example.sharet.databinding.FragmentCustomDialogBinding
 
 class CustomDialogFragment: DialogFragment() {
 

@@ -1,4 +1,4 @@
-package com.example.sharet.sharedresource
+package it.example.sharet.sharedresource
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sharet.R
-import com.example.sharet.database.SharedResource
-import com.example.sharet.databinding.ListItemSharedResourceBinding
+import it.example.sharet.R
+import it.example.sharet.database.SharedResource
+import it.example.sharet.databinding.ListItemSharedResourceBinding
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

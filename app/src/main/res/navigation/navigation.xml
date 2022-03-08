@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/shared_resource_fragment"
-        android:name="com.example.sharet.sharedresource.SharedResourceFragment"
+        android:name="it.example.sharet.sharedresource.SharedResourceFragment"
         android:label="fragment_shared_resource"
         tools:layout="@layout/fragment_shared_resource" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <dialog
         android:id="@+id/custom_dialog"
-        android:name="com.example.sharet.customdialog.CustomDialogFragment"
+        android:name="it.example.sharet.customdialog.CustomDialogFragment"
         android:label="CustomDialog" >
         <action
             android:id="@+id/action_customDialog_to_sharedResourceFragment"
@@ -30,7 +30,7 @@
     </dialog>
     <fragment
         android:id="@+id/sharedResourceCalendarFragment"
-        android:name="com.example.sharet.sharedresourcecalendar.SharedResourceCalendarFragment"
+        android:name="it.example.sharet.sharedresourcecalendar.SharedResourceCalendarFragment"
         android:label="SharedResourceCalendarFragment" >
         <action
             android:id="@+id/action_sharedResourceCalendarFragment_to_shared_resource_fragment"

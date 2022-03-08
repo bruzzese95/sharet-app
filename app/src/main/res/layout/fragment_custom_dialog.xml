@@ -5,7 +5,7 @@
     <data>
         <variable
             name="customDialogViewModel"
-            type="com.example.sharet.customdialog.CustomDialogViewModel" />
+            type="it.example.sharet.customdialog.CustomDialogViewModel" />
     </data>
 
     <LinearLayout

@@ -1,4 +1,4 @@
-package com.example.sharet.sharedresourcecalendar
+package it.example.sharet.sharedresourcecalendar
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
