@@ -1,9 +1,9 @@
-package it.example.sharet
+package it.sapienza.macc.sharet
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import it.example.sharet.databinding.ActivityMainBinding
+import it.sapienza.macc.sharet.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

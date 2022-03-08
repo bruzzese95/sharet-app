@@ -9,7 +9,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "it.example.sharet"
+        applicationId "it.sapienza.macc.sharet"
         minSdk 19
         targetSdk 32
         vectorDrawables.useSupportLibrary = true

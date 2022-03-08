@@ -1,8 +1,8 @@
-package it.example.sharet.customdialog
+package it.sapienza.macc.sharet.customdialog
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import it.example.sharet.database.SharedResourceDatabaseDao
+import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 
 class CustomDialogViewModelFactory(
     private val dataSource: SharedResourceDatabaseDao) : ViewModelProvider.Factory {

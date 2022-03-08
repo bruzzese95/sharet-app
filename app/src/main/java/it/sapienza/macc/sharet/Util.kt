@@ -1,4 +1,4 @@
-package it.example.sharet
+package it.sapienza.macc.sharet
 
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView

@@ -8,11 +8,11 @@
 
         <variable
             name="sharedResource"
-            type="it.example.sharet.database.SharedResource" />
+            type="it.sapienza.macc.sharet.database.SharedResource" />
 
         <variable
             name="clickListener"
-            type="it.example.sharet.sharedresource.SharedResourceListener" />
+            type="it.sapienza.macc.sharet.sharedresource.SharedResourceListener" />
     </data>
 
 

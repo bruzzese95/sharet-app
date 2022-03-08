@@ -1,8 +1,8 @@
-package it.example.sharet.sharedresourcecalendar
+package it.sapienza.macc.sharet.sharedresourcecalendar
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import it.example.sharet.database.SharedResourceDatabaseDao
+import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 
 class SharedResourceCalendarViewModelFactory(
         private val sharedResourceKey: Long,

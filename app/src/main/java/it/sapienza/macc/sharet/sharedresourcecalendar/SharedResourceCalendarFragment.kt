@@ -1,4 +1,4 @@
-package it.example.sharet.sharedresourcecalendar
+package it.sapienza.macc.sharet.sharedresourcecalendar
 
 import android.os.Build
 import android.os.Bundle
@@ -19,8 +19,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import it.example.sharet.R
-import it.example.sharet.databinding.*
+import it.sapienza.macc.sharet.R
+import it.sapienza.macc.sharet.databinding.*
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.CalendarMonth
 import com.kizitonwose.calendarview.model.DayOwner

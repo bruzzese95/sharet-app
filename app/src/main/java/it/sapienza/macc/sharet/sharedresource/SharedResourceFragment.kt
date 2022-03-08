@@ -1,4 +1,4 @@
-package it.example.sharet.sharedresource
+package it.sapienza.macc.sharet.sharedresource
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,9 +11,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import it.example.sharet.R
-import it.example.sharet.database.SharedResourceDatabase
-import it.example.sharet.databinding.FragmentSharedResourceBinding
+import it.sapienza.macc.sharet.R
+import it.sapienza.macc.sharet.database.SharedResourceDatabase
+import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
 
 /**
  * A simple [Fragment] subclass.

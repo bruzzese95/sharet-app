@@ -1,9 +1,9 @@
-package it.example.sharet.sharedresource
+package it.sapienza.macc.sharet.sharedresource
 
 import android.app.Application
 import androidx.lifecycle.*
-import it.example.sharet.database.SharedResource
-import it.example.sharet.database.SharedResourceDatabaseDao
+import it.sapienza.macc.sharet.database.SharedResource
+import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

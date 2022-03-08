@@ -8,7 +8,7 @@
         
         <variable
             name="sharedResourceViewModel"
-            type="it.example.sharet.sharedresource.SharedResourceViewModel" />
+            type="it.sapienza.macc.sharet.sharedresource.SharedResourceViewModel" />
         
     </data>
 
