@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+        <variable
+            name="sharedResourceCalendarViewModel"
+            type="it.sapienza.macc.sharet.sharedresourcecalendar.SharedResourceCalendarViewModel" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -70,6 +78,15 @@
             app:srcCompat="@drawable/ic_baseline_add_24"
             app:tint="@color/white"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/api_response"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:fontFamily="@font/roboto"
+            android:text="@{sharedResourceCalendarViewModel.response}"
+            android:textAlignment="center"
+            android:textSize="16sp" />
 
     </FrameLayout>
 </layout>

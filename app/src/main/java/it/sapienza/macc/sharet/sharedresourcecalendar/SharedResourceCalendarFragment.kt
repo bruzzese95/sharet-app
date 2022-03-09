@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,9 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
+import it.sapienza.macc.sharet.database.SharedResourceDatabase
+import it.sapienza.macc.sharet.sharedresource.SharedResourceViewModel
+import it.sapienza.macc.sharet.sharedresource.SharedResourceViewModelFactory
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -231,6 +235,27 @@ class SharedResourceCalendarFragment : Fragment() {
                 }*/
             }
         }
+
+
+
+
+        val application = requireNotNull(this.activity).application
+
+        val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
+
+        val viewModelFactory = SharedResourceCalendarViewModelFactory(dataSource)
+
+        val sharedResourceCalendarViewModel =
+            ViewModelProvider(
+                this, viewModelFactory).get(SharedResourceCalendarViewModel::class.java)
+
+        binding.sharedResourceCalendarViewModel = sharedResourceCalendarViewModel
+
+        binding.lifecycleOwner = this
+
+
+
+
 
         binding.exThreeAddButton.setOnClickListener {
             inputDialog.show()
