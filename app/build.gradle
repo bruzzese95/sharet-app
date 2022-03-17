@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -59,6 +60,7 @@ dependencies {
     //Lifecycle, ViewModel and LiveData dependencies
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$version_lifecycle"
 
     //Room dependencies
     implementation "androidx.room:room-runtime:$version_room"
@@ -79,4 +81,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
+
+    //Auth
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
 }

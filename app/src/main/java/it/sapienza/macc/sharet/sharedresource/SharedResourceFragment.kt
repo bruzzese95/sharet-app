@@ -1,17 +1,22 @@
 package it.sapienza.macc.sharet.sharedresource
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
 import it.sapienza.macc.sharet.R
+import it.sapienza.macc.sharet.auth.LoginViewModel
 import it.sapienza.macc.sharet.database.SharedResourceDatabase
 import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
 
@@ -21,13 +26,17 @@ import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
  * create an instance of this fragment.
  */
 class SharedResourceFragment : Fragment() {
+    private val loginViewModel by viewModels<LoginViewModel>()
+    private lateinit var binding: FragmentSharedResourceBinding
+    private val TAG ="SharedResourceFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        val binding: FragmentSharedResourceBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_shared_resource,
-            container, false)
+            container, false
+        )
 
         val application = requireNotNull(this.activity).application
 
@@ -42,6 +51,8 @@ class SharedResourceFragment : Fragment() {
         binding.sharedResourceViewModel = sharedResourceViewModel
 
         binding.lifecycleOwner = this
+
+        binding.logoutButton.setOnClickListener { AuthUI.getInstance().signOut(requireContext()) }
 
         sharedResourceViewModel.navigateToCustomDialog.observe(viewLifecycleOwner, Observer { resource ->
             resource?.let {
@@ -85,4 +96,33 @@ class SharedResourceFragment : Fragment() {
 
         return binding.root
     }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        handleAuthState()
+    }
+
+    private fun handleAuthState() {
+        val navController = findNavController()
+        loginViewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
+            when(authState) {
+                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
+                    Log.i(TAG, "Authenticated")
+                    binding.textView.text = String.format(
+                        "Hello %s!",
+                        FirebaseAuth.getInstance().currentUser?.displayName
+                    )
+                }
+                LoginViewModel.AuthenticationState.UNAUTHENTICATED -> {
+                    Log.i(TAG, "Unauthenticated")
+                    navController.navigate(R.id.action_shared_resource_fragment_to_loginFragment)
+                }
+                else ->
+                    Log.i(TAG, "authState=$authState not managed in the view model.")
+            }
+        }
+    }
+
 }
