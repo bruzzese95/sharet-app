@@ -17,6 +17,7 @@
 package it.sapienza.macc.sharet.auth
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -76,37 +77,37 @@ class LoginFragment : Fragment() {
         // Create and launch sign-in intent
         // We listen to the response of this activity with the SIGN_IN_RESULT_CODE code.
         startActivityForResult(
-            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
-                providers
-            ).build(), SIGN_IN_RESULT_CODE
+            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(),
+            SIGN_IN_RESULT_CODE
         )
     }
 
-    //XXX Death Code. It is used in the Udacity Tutorial, but not in this actual implementation (library advancements?)
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        if (requestCode == SIGN_IN_RESULT_CODE) {
-//            val response = IdpResponse.fromResultIntent(data)
-//            if (resultCode == Activity.RESULT_OK) {
-//                // Successfully signed in user.
-//                Log.i(TAG,"Sign in correctly completed.")
-//            }
-//            else {
-//                // Sign in failed.
-//                // If response is null the user canceled the sign-in flow using the back button.
-//                // Otherwise check response.getError().getErrorCode() and handle the error.
-//                Log.e(TAG, "Sign in was unsuccessful: ${response?.error?.errorCode}")
-//                //TODO Handle the exception
-//            }
-//        }
-//    }
+    //XXX Code not reached with some auth flow due to onViewCreated called before. Need of further investigation?
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == SIGN_IN_RESULT_CODE) {
+            val response = IdpResponse.fromResultIntent(data)
+            if (resultCode == Activity.RESULT_OK) {
+                // Successfully signed in user.
+                Log.i(TAG,"Sign in correctly completed.")
+            }
+            else {
+                // Sign in failed.
+                // If response is null the user canceled the sign-in flow using the back button.
+                // Otherwise check response.getError().getErrorCode() and handle the error.
+                Log.e(TAG, "Sign in was unsuccessful: ${response?.error?.errorCode}")
+                //TODO Handle the exception
+            }
+        }
+    }
 
     private fun handleAuthState() {
         viewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
             when(authState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     Log.i(TAG, "Authenticated")
+//                    saveUserInfo() //TODO WIP
                     findNavController().navigate(R.id.action_loginFragment_to_shared_resource_fragment)
                 }
                 LoginViewModel.AuthenticationState.UNAUTHENTICATED -> {
@@ -116,6 +117,26 @@ class LoginFragment : Fragment() {
                     Log.i(TAG, "authState=$authState not managed in the view model.")
             }
         }
+    }
+
+    //TODO Locate this logic in a more suitable step in the lifecycle of the app
+    private fun saveUserInfo() {
+        val user = FirebaseAuth.getInstance().currentUser
+
+        user!!.getIdToken(true)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val idToken = task.result?.token;
+                    if (idToken != null) {
+                        Log.i("id_token", "idToken = $idToken")
+                        //TODO WIP
+                        val sharedPref = activity?.getSharedPreferences("auth", Context.MODE_PRIVATE)
+                        sharedPref?.edit()?.putString("id_token", idToken)?.apply()
+                    }
+                } else {
+                    Log.e(TAG, task.exception.toString());
+                }
+            }
     }
 
 }

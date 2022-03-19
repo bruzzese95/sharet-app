@@ -28,17 +28,6 @@ class LoginViewModel : ViewModel() {
    val authenticationState = FirebaseUserLiveData().map { user ->
       if(user != null) {
          AuthenticationState.AUTHENTICATED
-//         user.getIdToken(true)
-//            .addOnCompleteListener { task ->
-//               if (task.isSuccessful()) {
-//                  val idToken = task.getResult()?.getToken();
-//                  if(idToken != null) {
-//                     Log.i("IdToken", idToken)
-//                  }
-//               } else {
-//                  // Handle error -> task.getException();
-//               }
-//            };
       } else {
          AuthenticationState.UNAUTHENTICATED
       }
