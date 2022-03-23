@@ -24,7 +24,7 @@
     </fragment>
     <dialog
         android:id="@+id/custom_dialog"
-        android:name="it.sapienza.macc.sharet.customdialog.CustomDialogFragment"
+        android:name="it.sapienza.macc.sharet.customdialogresource.CustomDialogResourceFragment"
         android:label="CustomDialog" >
         <action
             android:id="@+id/action_customDialog_to_sharedResourceFragment"

@@ -1,4 +1,4 @@
-package it.sapienza.macc.sharet.customdialog
+package it.sapienza.macc.sharet.customdialogresource
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,11 +7,10 @@ import androidx.lifecycle.viewModelScope
 import it.sapienza.macc.sharet.database.SharedResource
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CustomDialogViewModel(
+class CustomDialogResourceViewModel(
     val database: SharedResourceDatabaseDao) : ViewModel() {
 
 

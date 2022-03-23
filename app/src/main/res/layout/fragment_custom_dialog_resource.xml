@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="customDialogViewModel"
-            type="it.sapienza.macc.sharet.customdialog.CustomDialogViewModel" />
+            name="customDialogResourceViewModel"
+            type="it.sapienza.macc.sharet.customdialogresource.CustomDialogResourceViewModel" />
     </data>
 
     <LinearLayout
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/round_corner"
-        tools:context=".customdialog.CustomDialogFragment">
+        tools:context=".customdialogresource.CustomDialogResourceFragment">
 
     <TextView
         android:id="@+id/create_resource_text"
