@@ -1,5 +1,6 @@
 package it.sapienza.macc.sharet.sharedresource
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -106,13 +107,16 @@ class SharedResourceFragment : Fragment() {
 
     private fun handleAuthState() {
         val navController = findNavController()
+        val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
+
         loginViewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
             when(authState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     Log.i(TAG, "Authenticated")
                     binding.textView.text = String.format(
-                        "Hello %s!",
-                        FirebaseAuth.getInstance().currentUser?.displayName
+                        "Hello %s! Your idToken is %s",
+                        FirebaseAuth.getInstance().currentUser?.displayName,
+                        sharedPref?.getString("id_token", null) //TODO WIP
                     )
                 }
                 LoginViewModel.AuthenticationState.UNAUTHENTICATED -> {

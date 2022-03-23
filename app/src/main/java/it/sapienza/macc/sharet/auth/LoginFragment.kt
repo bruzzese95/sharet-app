@@ -107,7 +107,7 @@ class LoginFragment : Fragment() {
             when(authState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     Log.i(TAG, "Authenticated")
-//                    saveUserInfo() //TODO WIP
+                    saveUserInfo() //TODO WIP
                     findNavController().navigate(R.id.action_loginFragment_to_shared_resource_fragment)
                 }
                 LoginViewModel.AuthenticationState.UNAUTHENTICATED -> {
@@ -122,6 +122,7 @@ class LoginFragment : Fragment() {
     //TODO Locate this logic in a more suitable step in the lifecycle of the app
     private fun saveUserInfo() {
         val user = FirebaseAuth.getInstance().currentUser
+        val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
 
         user!!.getIdToken(true)
             .addOnCompleteListener { task ->
@@ -129,14 +130,13 @@ class LoginFragment : Fragment() {
                     val idToken = task.result?.token;
                     if (idToken != null) {
                         Log.i("id_token", "idToken = $idToken")
-                        //TODO WIP
-                        val sharedPref = activity?.getSharedPreferences("auth", Context.MODE_PRIVATE)
                         sharedPref?.edit()?.putString("id_token", idToken)?.apply()
                     }
                 } else {
                     Log.e(TAG, task.exception.toString());
                 }
             }
+
     }
 
 }
