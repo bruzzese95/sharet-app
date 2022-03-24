@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_sharedResourceCalendarFragment_to_shared_resource_fragment"
             app:destination="@id/shared_resource_fragment" />
+        <action
+            android:id="@+id/action_sharedResourceCalendarFragment_to_customDialogCalendarFragment"
+            app:destination="@id/customDialogCalendarFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -49,6 +52,16 @@
             android:id="@+id/action_loginFragment_to_shared_resource_fragment"
             app:destination="@id/shared_resource_fragment"
             app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/customDialogCalendarFragment"
+        android:name="it.sapienza.macc.sharet.customdialogcalendar.CustomDialogCalendarFragment"
+        android:label="CustomDialogCalendarFragment" >
+        <action
+            android:id="@+id/action_customDialogCalendarFragment_to_sharedResourceCalendarFragment"
+            app:destination="@id/sharedResourceCalendarFragment"
+            app:popUpTo="@id/sharedResourceCalendarFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

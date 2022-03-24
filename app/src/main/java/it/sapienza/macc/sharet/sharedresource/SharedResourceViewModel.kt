@@ -21,13 +21,13 @@ class SharedResourceViewModel(
 
 
     //Variable that tells the Fragment to navigate to a specific [SharedResource]
-    private val _navigateToCustomDialog = MutableLiveData<Boolean>()
-    val navigateToCustomDialog: LiveData<Boolean>
-        get() = _navigateToCustomDialog
+    private val _navigateToCustomDialogResource = MutableLiveData<Boolean>()
+    val navigateToCustomDialogResource: LiveData<Boolean>
+        get() = _navigateToCustomDialogResource
 
 
     fun doneNavigating() {
-        _navigateToCustomDialog.value = null
+        _navigateToCustomDialogResource.value = null
     }
 
     private val _navigateToSharedResourceDetail = MutableLiveData<Long>()
@@ -85,7 +85,7 @@ class SharedResourceViewModel(
     fun onAddResourceButton() {
         viewModelScope.launch {
 
-            _navigateToCustomDialog.value = true
+            _navigateToCustomDialogResource.value = true
         }
     }
 

@@ -2,10 +2,7 @@ package it.sapienza.macc.sharet.sharedresourcecalendar
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import it.sapienza.macc.sharet.database.SharedResource
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.network.SharedResourceApi
@@ -37,6 +34,24 @@ class SharedResourceCalendarViewModel(
     private val resource = MediatorLiveData<SharedResource>()
 
     fun getResource() = resource
+
+
+    private val _navigateToCustomDialogCalendar = MutableLiveData<Boolean>()
+    val navigateToCustomDialogCalendar: LiveData<Boolean>
+        get() = _navigateToCustomDialogCalendar
+
+
+    fun doneNavigating() {
+        _navigateToCustomDialogCalendar.value = null
+    }
+
+    fun onAddReservationButton() {
+        viewModelScope.launch {
+
+            _navigateToCustomDialogCalendar.value = true
+        }
+    }
+
 
 
     // The internal MutableLiveData String that stores the most recent response
@@ -73,29 +88,30 @@ class SharedResourceCalendarViewModel(
         viewModelJob.cancel()
     }
 
-    /**
+/*
+    *//**
      * Variable that tells the fragment whether it should navigate to [SleepTrackerFragment].
      *
      * This is `private` because we don't want to expose the ability to set [MutableLiveData] to
      * the [Fragment]
-     */
+     *//*
     private val _navigateToSharedResource = MutableLiveData<Boolean?>()
 
-    /**
+    *//**
      * When true immediately navigate back to the [SleepTrackerFragment]
-     */
+     *//*
     val navigateToSharedResource: LiveData<Boolean?>
         get() = _navigateToSharedResource
 
 
-    /**
+    *//**
      * Call this immediately after navigating to [SleepTrackerFragment]
-     */
+     *//*
     fun doneNavigating() {
         _navigateToSharedResource.value = null
     }
 
     fun onClose() {
         _navigateToSharedResource.value = true
-    }
+    }*/
 }

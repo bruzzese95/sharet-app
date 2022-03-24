@@ -7,13 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import it.sapienza.macc.sharet.R
@@ -55,7 +53,8 @@ class SharedResourceFragment : Fragment() {
 
         binding.logoutButton.setOnClickListener { AuthUI.getInstance().signOut(requireContext()) }
 
-        sharedResourceViewModel.navigateToCustomDialog.observe(viewLifecycleOwner, Observer { resource ->
+        sharedResourceViewModel.navigateToCustomDialogResource.observe(viewLifecycleOwner
+        ) { resource ->
             resource?.let {
                 // We need to get the navController from this, because button is not ready, and it
                 // just has to be a view. For some reason, this only matters if we hit add again
@@ -70,17 +69,18 @@ class SharedResourceFragment : Fragment() {
                 // has a configuration change.
                 sharedResourceViewModel.doneNavigating()
             }
-        })
+        }
 
 
-        sharedResourceViewModel.navigateToSharedResourceDetail.observe(viewLifecycleOwner, Observer { resource ->
+        sharedResourceViewModel.navigateToSharedResourceDetail.observe(viewLifecycleOwner
+        ) { resource ->
             resource?.let {
                 this.findNavController().navigate(
                     SharedResourceFragmentDirections.actionSharedResourceFragmentToSharedResourceCalendarFragment()
                 )
                 sharedResourceViewModel.onSharedResourceDetailNavigated()
             }
-        })
+        }
 
 
         val adapter = SharedResourceAdapter(SharedResourceListener { resourceId ->
@@ -89,11 +89,11 @@ class SharedResourceFragment : Fragment() {
 
         binding.rvSharedResource.adapter = adapter
 
-        sharedResourceViewModel.resources.observe(viewLifecycleOwner, Observer {
+        sharedResourceViewModel.resources.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
-        })
+        }
 
         return binding.root
     }

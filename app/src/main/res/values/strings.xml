@@ -19,6 +19,9 @@
     <string name="calendar_dialog_delete_confirmation">Delete this event?</string>
     <string name="delete">Delete</string>
     <string name="calendar_title">Shared Resource Calendar</string>
+    <string name="event_title">Enter reservation title</string>
+    <string name="reservation_title">Create your reservation</string>
+
 
     <string name="login_btn">Login</string>
     <string name="login_prompt">Login to access ShareT app!</string>

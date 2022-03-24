@@ -1,5 +1,6 @@
 package it.sapienza.macc.sharet.customdialogresource
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,6 @@ class CustomDialogResourceFragment: DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding: FragmentCustomDialogResourceBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_custom_dialog_resource, container, false)
-
         val application = requireNotNull(this.activity).application
 
 
@@ -36,11 +36,11 @@ class CustomDialogResourceFragment: DialogFragment() {
         binding.customDialogResourceViewModel = customDialogViewModel
 
 
-        customDialogViewModel.navigateToSharedResource.observe(viewLifecycleOwner, Observer {
+        customDialogViewModel.navigateToSharedResource.observe(viewLifecycleOwner) {
             if (it == true) {
                 customDialogViewModel.doneNavigating()
             }
-        })
+        }
 
 
         binding.submitCreateResourceButton.setOnClickListener { view: View ->
@@ -48,7 +48,6 @@ class CustomDialogResourceFragment: DialogFragment() {
 
             this.findNavController().navigate(CustomDialogResourceFragmentDirections.actionCustomDialogToSharedResourceFragment())
         }
-
 
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.round_corner);
 
@@ -58,7 +57,13 @@ class CustomDialogResourceFragment: DialogFragment() {
     override fun onStart() {
         super.onStart()
         val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
-        val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
         dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
+
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+    }
+
+
 }

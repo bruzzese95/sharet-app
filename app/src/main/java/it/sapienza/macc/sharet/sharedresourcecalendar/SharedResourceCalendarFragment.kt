@@ -5,18 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,46 +26,10 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import it.sapienza.macc.sharet.database.SharedResourceDatabase
-import it.sapienza.macc.sharet.sharedresource.SharedResourceViewModel
-import it.sapienza.macc.sharet.sharedresource.SharedResourceViewModelFactory
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
-
-data class Event(val id: String, val text: String, val date: LocalDate)
-
-class SharedResourceCalendarEventsAdapter(val onClick: (Event) -> Unit) :
-    RecyclerView.Adapter<SharedResourceCalendarEventsAdapter.SharedResourceCalendarEventsViewHolder>() {
-
-    val events = mutableListOf<Event>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SharedResourceCalendarEventsViewHolder {
-        return SharedResourceCalendarEventsViewHolder(
-            CalendarEventItemViewBinding.inflate(parent.context.layoutInflater, parent, false)
-        )
-    }
-
-    override fun onBindViewHolder(viewHolder: SharedResourceCalendarEventsViewHolder, position: Int) {
-        viewHolder.bind(events[position])
-    }
-
-    override fun getItemCount(): Int = events.size
-
-    inner class SharedResourceCalendarEventsViewHolder(private val binding: CalendarEventItemViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            itemView.setOnClickListener {
-                onClick(events[bindingAdapterPosition])
-            }
-        }
-
-        fun bind(event: Event) {
-            binding.itemEventText.text = event.text
-        }
-    }
-}
 
 @RequiresApi(Build.VERSION_CODES.O)
 class SharedResourceCalendarFragment : Fragment() {
@@ -86,7 +47,7 @@ class SharedResourceCalendarFragment : Fragment() {
             .show()
     }
 
-    private val inputDialog by lazy {
+    /*private val inputDialog by lazy {
         val editText = AppCompatEditText(requireContext())
         val layout = FrameLayout(requireContext()).apply {
             // Setting the padding on the EditText only pads the input area
@@ -119,7 +80,7 @@ class SharedResourceCalendarFragment : Fragment() {
                     context.inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
                 }
             }
-    }
+    }*/
 
     private val titleRes: Int = R.string.calendar_title
 
@@ -256,10 +217,23 @@ class SharedResourceCalendarFragment : Fragment() {
 
 
 
+        sharedResourceCalendarViewModel.navigateToCustomDialogCalendar.observe(viewLifecycleOwner, Observer { reservation ->
+            reservation?.let {
+                // We need to get the navController from this, because button is not ready, and it
+                // just has to be a view. For some reason, this only matters if we hit add again
+                // after using the back button, not if we hit stop and choose a name.
+                // Also, in the Navigation Editor, for Quality -> Tracker, check "Inclusive" for
+                // popping the stack to get the correct behavior if we press stop multiple times
+                // followed by back.
+                this.findNavController().navigate(
+                    SharedResourceCalendarFragmentDirections.actionSharedResourceCalendarFragmentToCustomDialogCalendarFragment()
+                )
+                // Reset state to make sure we only navigate once, even if the device
+                // has a configuration change.
+                sharedResourceCalendarViewModel.doneNavigating()
+            }
+        })
 
-        binding.exThreeAddButton.setOnClickListener {
-            inputDialog.show()
-        }
 
         return binding.root
     }
