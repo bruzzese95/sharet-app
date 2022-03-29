@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [SharedResource::class], version = 1, exportSchema = false)
+@Database(entities = [SharedResourceEntity::class], version = 2, exportSchema = false)
 abstract class SharedResourceDatabase: RoomDatabase() {
 
     abstract val sharedResourceDatabaseDao: SharedResourceDatabaseDao

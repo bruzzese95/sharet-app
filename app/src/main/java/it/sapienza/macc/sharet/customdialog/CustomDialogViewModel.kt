@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import it.sapienza.macc.sharet.database.SharedResource
+import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -23,9 +22,9 @@ class CustomDialogViewModel(
         _navigateToSharedResource.value = null
     }
 
-    private suspend fun update(resource: SharedResource) {
+    private suspend fun update(resourceEntity: SharedResourceEntity) {
         withContext(Dispatchers.IO) {
-            database.update(resource)
+            database.update(resourceEntity)
         }
     }
 
@@ -36,8 +35,8 @@ class CustomDialogViewModel(
     // not the lambda.
     fun onSetSharedResourceName(name: String) {
         viewModelScope.launch {
-            val newResource = SharedResource()
-            newResource.resourceName = name
+            val newResource = SharedResourceEntity()
+            newResource.name = name
             database.insert(newResource)
 
             _navigateToSharedResource.value = true

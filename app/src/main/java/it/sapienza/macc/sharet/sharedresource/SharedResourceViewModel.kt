@@ -2,8 +2,9 @@ package it.sapienza.macc.sharet.sharedresource
 
 import android.app.Application
 import androidx.lifecycle.*
-import it.sapienza.macc.sharet.database.SharedResource
+import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
+import it.sapienza.macc.sharet.repository.SharedResourceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -11,23 +12,19 @@ import kotlinx.coroutines.withContext
 /**
  * ViewModel for SharedResourceFragment
  */
-class SharedResourceViewModel(
-        val database: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
-
-
-    private var resource = MutableLiveData<SharedResource?>()
-
-    val resources = database.getAllResources()
-
+class SharedResourceViewModel(val database: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
+    private val sharedResourceRepository = SharedResourceRepository(database)
+    init {
+        viewModelScope.launch { sharedResourceRepository.refreshSharedResourceList() }
+    }
+    val sharedResourcesList = sharedResourceRepository.sharedResourceList
 
     //Variable that tells the Fragment to navigate to a specific [SharedResource]
     private val _navigateToCustomDialog = MutableLiveData<Boolean>()
     val navigateToCustomDialog: LiveData<Boolean>
         get() = _navigateToCustomDialog
-
-
     fun doneNavigating() {
-        _navigateToCustomDialog.value = null
+        _navigateToCustomDialog.value = false
     }
 
     private val _navigateToSharedResourceDetail = MutableLiveData<Long>()
@@ -39,40 +36,13 @@ class SharedResourceViewModel(
     }
 
     fun onSharedResourceDetailNavigated() {
-        _navigateToSharedResourceDetail.value = null
-    }
-
-    init {
-        initializeSharedResource()
-    }
-
-    private fun initializeSharedResource() {
-        viewModelScope.launch {
-            resource.value = getSharedResourceFromDatabase()
-        }
-    }
-
-    /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
-     *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
-     */
-
-
-    private suspend fun getSharedResourceFromDatabase(): SharedResource? {
-        var resource = database.getResource()
-        if (!resource?.resourceName.equals("not_initialized")) {
-            resource = null
-        }
-        return resource
+        _navigateToSharedResourceDetail.value = 0
     }
 
 
-    private suspend fun insert(resource: SharedResource) {
+    private suspend fun insert(resourceEntity: SharedResourceEntity) {
         withContext(Dispatchers.IO) {
-            database.insert(resource)
+            database.insert(resourceEntity)
         }
     }
 
@@ -96,9 +66,6 @@ class SharedResourceViewModel(
         viewModelScope.launch {
             // Clear the database table.
             clear()
-
-            // And clear tonight since it's no longer in the database
-            resource.value = null
         }
     }
 }

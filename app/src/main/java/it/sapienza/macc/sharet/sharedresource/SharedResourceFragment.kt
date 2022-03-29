@@ -89,11 +89,11 @@ class SharedResourceFragment : Fragment() {
 
         binding.rvSharedResource.adapter = adapter
 
-        sharedResourceViewModel.resources.observe(viewLifecycleOwner, Observer {
+        sharedResourceViewModel.sharedResourcesList.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
-        })
+        }
 
         return binding.root
     }

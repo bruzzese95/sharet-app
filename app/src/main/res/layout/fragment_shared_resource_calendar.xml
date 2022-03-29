@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <data>
-        <variable
-            name="sharedResourceCalendarViewModel"
-            type="it.sapienza.macc.sharet.sharedresourcecalendar.SharedResourceCalendarViewModel" />
-    </data>
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="sharedResourceCalendarViewModel"-->
+<!--            type="it.sapienza.macc.sharet.sharedresourcecalendar.SharedResourceCalendarViewModel" />-->
+<!--    </data>-->
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -84,9 +84,10 @@
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:fontFamily="@font/roboto"
-            android:text="@{sharedResourceCalendarViewModel.response}"
             android:textAlignment="center"
             android:textSize="16sp" />
+<!--            android:text="@{sharedResourceCalendarViewModel.response}"-->
+
 
     </FrameLayout>
 </layout>
