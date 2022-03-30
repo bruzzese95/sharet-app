@@ -208,12 +208,12 @@ class SharedResourceCalendarFragment : Fragment() {
         }
     }
 
-    private fun saveEvent(text: String) {
+    private fun saveEvent(text: String, startTime: String, endTime: String) {
         if (text.isBlank()) {
             Toast.makeText(requireContext(), R.string.calendar_empty_input_text, Toast.LENGTH_LONG).show()
         } else {
             selectedDate?.let {
-                events[it] = events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it))
+                events[it] = events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it, startTime, endTime))
                 updateAdapterForDate(it)
             }
         }
@@ -272,7 +272,7 @@ class SharedResourceCalendarFragment : Fragment() {
         startTimePicker = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                 val startTime = dialog.getCustomView().findViewById(R.id.selected_start_time) as EditText
-                editor.putString("start_time",String.format("%d : %d", hourOfDay, minute))
+                editor.putString("start_time",String.format("%d:%d", hourOfDay, minute))
                 editor.apply()
                 startTime.setText(preferences.getString("start_time", null)!!)
             }
@@ -281,7 +281,7 @@ class SharedResourceCalendarFragment : Fragment() {
         endTimePicker = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                 val endTime = dialog.getCustomView().findViewById(R.id.selected_end_time) as EditText
-                editor.putString("end_time",String.format("%d : %d", hourOfDay, minute))
+                editor.putString("end_time",String.format("%d:%d", hourOfDay, minute))
                 editor.apply()
                 endTime.setText(preferences.getString("end_time", null)!!)
             }
@@ -305,7 +305,9 @@ class SharedResourceCalendarFragment : Fragment() {
             editor.apply()
 
             //saveEvent(reservationName.text.toString())
-            saveEvent(preferences.getString("reservation_name", null)!!)
+            saveEvent(preferences.getString("reservation_name", null)!!,
+                      preferences.getString("start_time", null)!!,
+                      preferences.getString("end_time", null)!!)
 
             dialog.dismiss()
         }
