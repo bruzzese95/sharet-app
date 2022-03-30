@@ -21,6 +21,7 @@
     <string name="calendar_title">Shared Resource Calendar</string>
     <string name="event_name">Enter reservation name</string>
     <string name="reservation_title">Create your reservation</string>
+    <string name="fill_fields">Please, fill in all fields.</string>
 
 
     <string name="login_btn">Login</string>

@@ -209,8 +209,8 @@ class SharedResourceCalendarFragment : Fragment() {
     }
 
     private fun saveEvent(text: String, startTime: String, endTime: String) {
-        if (text.isBlank()) {
-            Toast.makeText(requireContext(), R.string.calendar_empty_input_text, Toast.LENGTH_LONG).show()
+        if (text.isBlank() or startTime.isBlank() or endTime.isBlank()) {
+            Toast.makeText(requireContext(), R.string.fill_fields, Toast.LENGTH_LONG).show()
         } else {
             selectedDate?.let {
                 events[it] = events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it, startTime, endTime))
