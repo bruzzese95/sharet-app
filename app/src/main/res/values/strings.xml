@@ -19,7 +19,7 @@
     <string name="calendar_dialog_delete_confirmation">Delete this event?</string>
     <string name="delete">Delete</string>
     <string name="calendar_title">Shared Resource Calendar</string>
-    <string name="event_title">Enter reservation title</string>
+    <string name="event_name">Enter reservation name</string>
     <string name="reservation_title">Create your reservation</string>
 
 
@@ -27,4 +27,8 @@
     <string name="login_prompt">Login to access ShareT app!</string>
     <string name="login_button_text">Login</string>
     <string name="logout_button_text">Logout</string>
+    <string name="start_time">Start time</string>
+    <string name="end_time">End time</string>
+    <string name="time_not_defined">_________</string>
+    <string name="time_hint">00:00</string>
 </resources>

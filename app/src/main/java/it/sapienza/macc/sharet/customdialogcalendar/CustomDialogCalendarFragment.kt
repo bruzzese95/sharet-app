@@ -44,11 +44,11 @@ class CustomDialogCalendarFragment: DialogFragment() {
         })
 
 
-        binding.submitCreateEventButton.setOnClickListener { view: View ->
+        /*binding.submitCreateEventButton.setOnClickListener { view: View ->
             customDialogViewModel.onSetReservation(binding.nameEvent.text.toString())
 
             this.findNavController().navigate(CustomDialogCalendarFragmentDirections.actionCustomDialogCalendarFragmentToSharedResourceCalendarFragment())
-        }
+        }*/
 /*
         val dialog = getDialog()
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.round_corner)*/

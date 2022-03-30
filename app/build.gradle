@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "it.sapienza.macc.sharet"
-        minSdk 19
+        minSdk 21
         targetSdk 32
         vectorDrawables.useSupportLibrary = true
         versionCode 1
@@ -85,4 +85,7 @@ dependencies {
     //Auth
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
+
+    //Material Dialog
+    implementation "com.afollestad.material-dialogs:core:3.1.0"
 }

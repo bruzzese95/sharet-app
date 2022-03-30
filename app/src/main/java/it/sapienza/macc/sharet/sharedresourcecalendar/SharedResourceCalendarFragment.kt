@@ -1,22 +1,26 @@
 package it.sapienza.macc.sharet.sharedresourcecalendar
 
+import android.app.TimePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
 import it.sapienza.macc.sharet.R
 import it.sapienza.macc.sharet.databinding.*
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -47,40 +51,6 @@ class SharedResourceCalendarFragment : Fragment() {
             .show()
     }
 
-    /*private val inputDialog by lazy {
-        val editText = AppCompatEditText(requireContext())
-        val layout = FrameLayout(requireContext()).apply {
-            // Setting the padding on the EditText only pads the input area
-            // not the entire EditText so we wrap it in a FrameLayout.
-            val padding = dpToPx(20, requireContext())
-            setPadding(padding, padding, padding, padding)
-            addView(editText, FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            ))
-        }
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.calendar_input_dialog_title))
-            .setView(layout)
-            .setPositiveButton(R.string.save) { _, _ ->
-                saveEvent(editText.text.toString())
-                // Prepare EditText for reuse.
-                editText.setText("")
-            }
-            .setNegativeButton(R.string.close, null)
-            .create()
-            .apply {
-                setOnShowListener {
-                    // Show the keyboard
-                    editText.requestFocus()
-                    context.inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-                }
-                setOnDismissListener {
-                    // Hide the keyboard
-                    context.inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
-                }
-            }
-    }*/
 
     private val titleRes: Int = R.string.calendar_title
 
@@ -94,6 +64,10 @@ class SharedResourceCalendarFragment : Fragment() {
 
     private lateinit var binding: FragmentSharedResourceCalendarBinding
 
+
+    lateinit var preferences: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                savedInstanceState: Bundle?): View?  {
         binding = DataBindingUtil.inflate(
@@ -105,6 +79,8 @@ class SharedResourceCalendarFragment : Fragment() {
             adapter = eventsAdapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }
+
+        initPrefs()
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
@@ -215,25 +191,9 @@ class SharedResourceCalendarFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-
-
-        sharedResourceCalendarViewModel.navigateToCustomDialogCalendar.observe(viewLifecycleOwner, Observer { reservation ->
-            reservation?.let {
-                // We need to get the navController from this, because button is not ready, and it
-                // just has to be a view. For some reason, this only matters if we hit add again
-                // after using the back button, not if we hit stop and choose a name.
-                // Also, in the Navigation Editor, for Quality -> Tracker, check "Inclusive" for
-                // popping the stack to get the correct behavior if we press stop multiple times
-                // followed by back.
-                this.findNavController().navigate(
-                    SharedResourceCalendarFragmentDirections.actionSharedResourceCalendarFragmentToCustomDialogCalendarFragment()
-                )
-                // Reset state to make sure we only navigate once, even if the device
-                // has a configuration change.
-                sharedResourceCalendarViewModel.doneNavigating()
-            }
-        })
-
+        binding.exThreeAddButton.setOnClickListener {
+            showCustomDialog()
+        }
 
         return binding.root
     }
@@ -288,4 +248,88 @@ class SharedResourceCalendarFragment : Fragment() {
         binding.calendarToolbar.setBackgroundColor(requireContext().getColorCompat(R.color.colorPrimary))
         requireActivity().window.statusBarColor = requireContext().getColorCompat(R.color.colorPrimaryDark)
     }
+
+
+    private fun initPrefs() {
+        preferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        editor = preferences.edit()
+    }
+
+    private fun showCustomDialog() {
+        val dialog = MaterialDialog(requireContext())
+            .noAutoDismiss()
+            .customView(R.layout.fragment_custom_dialog_calendar)
+
+        dialog.window?.setBackgroundDrawableResource(R.drawable.round_corner)
+
+
+        val startTimePicker: TimePickerDialog
+        val endTimePicker: TimePickerDialog
+        val mcurrentTime = Calendar.getInstance()
+        val hour = mcurrentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = mcurrentTime.get(Calendar.MINUTE)
+
+        startTimePicker = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
+            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                val startTime = dialog.getCustomView().findViewById(R.id.selected_start_time) as EditText
+                editor.putString("start_time",String.format("%d : %d", hourOfDay, minute))
+                editor.apply()
+                startTime.setText(preferences.getString("start_time", null)!!)
+            }
+        }, hour, minute, true)
+
+        endTimePicker = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
+            override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+                val endTime = dialog.getCustomView().findViewById(R.id.selected_end_time) as EditText
+                editor.putString("end_time",String.format("%d : %d", hourOfDay, minute))
+                editor.apply()
+                endTime.setText(preferences.getString("end_time", null)!!)
+            }
+        }, hour, minute, true)
+
+
+        /*val picker = MaterialTimePicker.Builder()
+            .setTimeFormat(TimeFormat.CLOCK_12H)
+            .setHour(12)
+            .setMinute(10)
+            .setTitleText("Select Reservation Time")
+            .build()*/
+
+
+
+        dialog.findViewById<TextView>(R.id.positive_button).setOnClickListener{
+            val reservationName = dialog.getCustomView().findViewById(R.id.name_event) as EditText
+
+
+            editor.putString("reservation_name", reservationName.text.toString())
+            editor.apply()
+
+            //saveEvent(reservationName.text.toString())
+            saveEvent(preferences.getString("reservation_name", null)!!)
+
+            dialog.dismiss()
+        }
+
+        dialog.findViewById<TextView>(R.id.negative_button).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.findViewById<EditText>(R.id.selected_start_time).setOnClickListener {
+            startTimePicker.show()
+            //picker.show(requireFragmentManager(), "tag")
+        }
+
+        dialog.findViewById<EditText>(R.id.selected_end_time).setOnClickListener {
+            endTimePicker.show()
+            //picker.show(requireFragmentManager(), "tag")
+        }
+
+
+
+
+        dialog.show()
+
+
+    }
+
 }
