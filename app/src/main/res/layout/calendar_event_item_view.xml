@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="12:00" />
+                tools:text="12:00" />
 
             <TextView
                 android:id="@+id/slash"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="13:00" />
+                tools:text="13:00" />
 
 
         </LinearLayout>

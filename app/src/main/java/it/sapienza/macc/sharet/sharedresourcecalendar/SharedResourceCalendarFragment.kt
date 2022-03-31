@@ -208,14 +208,16 @@ class SharedResourceCalendarFragment : Fragment() {
         }
     }
 
-    private fun saveEvent(text: String, startTime: String, endTime: String) {
-        if (text.isBlank() or startTime.isBlank() or endTime.isBlank()) {
+    private fun saveEvent(text: String, startTime: String, endTime: String): Boolean {
+        if (text.isBlank() or startTime.equals("null") or endTime.equals("null")) {
             Toast.makeText(requireContext(), R.string.fill_fields, Toast.LENGTH_LONG).show()
+            return false
         } else {
             selectedDate?.let {
                 events[it] = events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it, startTime, endTime))
                 updateAdapterForDate(it)
             }
+            return true
         }
     }
 
@@ -253,6 +255,10 @@ class SharedResourceCalendarFragment : Fragment() {
     private fun initPrefs() {
         preferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         editor = preferences.edit()
+        editor.putString("reservation_name", "null")
+        editor.putString("start_time", "null")
+        editor.putString("end_time", "null")
+        editor.apply()
     }
 
     private fun showCustomDialog() {
@@ -272,7 +278,9 @@ class SharedResourceCalendarFragment : Fragment() {
         startTimePicker = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                 val startTime = dialog.getCustomView().findViewById(R.id.selected_start_time) as EditText
-                editor.putString("start_time",String.format("%d:%d", hourOfDay, minute))
+                var minuteStr = if(minute<10) '0'+String.format("%d", minute) else String.format("%d", minute)
+                var hourStr = if(hourOfDay<10) '0'+String.format("%d", hourOfDay) else String.format("%d", hourOfDay)
+                editor.putString("start_time",hourStr+':'+minuteStr)
                 editor.apply()
                 startTime.setText(preferences.getString("start_time", null)!!)
             }
@@ -281,7 +289,9 @@ class SharedResourceCalendarFragment : Fragment() {
         endTimePicker = TimePickerDialog(context, object : TimePickerDialog.OnTimeSetListener {
             override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
                 val endTime = dialog.getCustomView().findViewById(R.id.selected_end_time) as EditText
-                editor.putString("end_time",String.format("%d:%d", hourOfDay, minute))
+                var minuteStr = if(minute<10) '0'+String.format("%d", minute) else String.format("%d", minute)
+                var hourStr = if(hourOfDay<10) '0'+String.format("%d", hourOfDay) else String.format("%d", hourOfDay)
+                editor.putString("end_time",hourStr+':'+minuteStr)
                 editor.apply()
                 endTime.setText(preferences.getString("end_time", null)!!)
             }
@@ -298,21 +308,30 @@ class SharedResourceCalendarFragment : Fragment() {
 
 
         dialog.findViewById<TextView>(R.id.positive_button).setOnClickListener{
+
+            preferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            editor = preferences.edit()
+
             val reservationName = dialog.getCustomView().findViewById(R.id.name_event) as EditText
 
 
-            editor.putString("reservation_name", reservationName.text.toString())
-            editor.apply()
+
+            preferences.edit().putString("reservation_name", reservationName.text.toString()).apply()
+
+
 
             //saveEvent(reservationName.text.toString())
-            saveEvent(preferences.getString("reservation_name", null)!!,
+            val isWorking = saveEvent(preferences.getString("reservation_name", null)!!,
                       preferences.getString("start_time", null)!!,
                       preferences.getString("end_time", null)!!)
 
-            dialog.dismiss()
+            if(isWorking) dialog.dismiss()
         }
 
         dialog.findViewById<TextView>(R.id.negative_button).setOnClickListener {
+            preferences.edit().putString("reservation_name", "null").apply()
+            preferences.edit().putString("start_time", "null").apply()
+            preferences.edit().putString("end_time", "null").apply()
             dialog.dismiss()
         }
 
