@@ -38,6 +38,9 @@ interface SharedResourceDatabaseDao {
     @Query("DELETE FROM shared_resource_table")
     suspend fun clear()
 
+    @Query("DELETE FROM shared_resource_table WHERE resourceId = :key")
+    suspend fun clearWithId(key: Long)
+
 
     /**
      * Selects and returns all rows in the table

@@ -11,8 +11,16 @@
             type="it.sapienza.macc.sharet.database.SharedResource" />
 
         <variable
-            name="clickListener"
+            name="clickListenerResource"
             type="it.sapienza.macc.sharet.sharedresource.SharedResourceListener" />
+
+        <variable
+            name="clickListenerDelete"
+            type="it.sapienza.macc.sharet.sharedresource.DeleteResourceListener" />
+
+        <variable
+            name="sharedResourceViewModel"
+            type="it.sapienza.macc.sharet.sharedresource.SharedResourceViewModel" />
     </data>
 
 
@@ -32,7 +40,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:sharedResourceImage="@{sharedResource}"
-            android:onClick="@{() -> clickListener.onClick(sharedResource)}"
+            android:onClick="@{() -> clickListenerResource.onClick(sharedResource)}"
             tools:srcCompat="@drawable/ic_baseline_whatshot_24" />
 
         <TextView
@@ -49,7 +57,7 @@
             app:layout_constraintStart_toEndOf="@+id/resource_image"
             app:layout_constraintTop_toTopOf="@+id/resource_image"
             app:sharedResourceName="@{sharedResource}"
-            android:onClick="@{() -> clickListener.onClick(sharedResource)}"
+            android:onClick="@{() -> clickListenerResource.onClick(sharedResource)}"
             tools:text="Your shared resource" />
 
 
@@ -78,7 +86,8 @@
             app:layout_constraintStart_toEndOf="@+id/resource_name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.609"
-            tools:srcCompat="@drawable/ic_baseline_delete_24" />
+            tools:srcCompat="@drawable/ic_baseline_delete_24"
+            android:onClick="@{() -> clickListenerDelete.onClick(sharedResource)}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

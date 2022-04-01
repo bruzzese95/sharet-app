@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
@@ -72,7 +71,7 @@ class SharedResourceFragment : Fragment() {
         }
 
 
-        sharedResourceViewModel.navigateToSharedResourceDetail.observe(viewLifecycleOwner
+        sharedResourceViewModel.navigateToSharedResourceCalendar.observe(viewLifecycleOwner
         ) { resource ->
             resource?.let {
                 this.findNavController().navigate(
@@ -84,8 +83,12 @@ class SharedResourceFragment : Fragment() {
 
 
         val adapter = SharedResourceAdapter(SharedResourceListener { resourceId ->
-            sharedResourceViewModel.onAddButtonClicked(resourceId)
+            sharedResourceViewModel.onSharedResourceButtonClicked(resourceId)
+        }, DeleteResourceListener { resourceId ->
+            sharedResourceViewModel.onClearWithId(resourceId)
         })
+
+
 
         binding.rvSharedResource.adapter = adapter
 

@@ -1,26 +1,17 @@
 package it.sapienza.macc.sharet.sharedresource
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import it.sapienza.macc.sharet.R
 import it.sapienza.macc.sharet.database.SharedResource
 import it.sapienza.macc.sharet.databinding.ListItemSharedResourceBinding
-
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
-class SharedResourceAdapter(val clickListener: SharedResourceListener) : ListAdapter<SharedResource,
+class SharedResourceAdapter(val clickListenerResource: SharedResourceListener, val clickListenerDelete: DeleteResourceListener) : ListAdapter<SharedResource,
         SharedResourceAdapter.ViewHolder>(SharedResourceDiffCallback()) {
 
 
@@ -28,7 +19,7 @@ class SharedResourceAdapter(val clickListener: SharedResourceListener) : ListAda
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.bind(clickListener, item)
+        holder.bind(clickListenerResource, clickListenerDelete, item)
     }
 
 
@@ -40,9 +31,10 @@ class SharedResourceAdapter(val clickListener: SharedResourceListener) : ListAda
     class ViewHolder private constructor (val binding: ListItemSharedResourceBinding)
         : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clickListener: SharedResourceListener, item: SharedResource) {
+        fun bind(clickListenerResource: SharedResourceListener, clickListenerDelete: DeleteResourceListener, item: SharedResource) {
             binding.sharedResource = item
-            binding.clickListener = clickListener
+            binding.clickListenerResource = clickListenerResource
+            binding.clickListenerDelete = clickListenerDelete
             binding.executePendingBindings()
         }
 
@@ -74,5 +66,9 @@ class SharedResourceDiffCallback : DiffUtil.ItemCallback<SharedResource>() {
 
 
 class SharedResourceListener(val clickListener: (resourceId: Long) -> Unit) {
+    fun onClick(resource: SharedResource) = clickListener(resource.resourceId)
+}
+
+class DeleteResourceListener(val clickListener: (resourceId: Long) -> Unit) {
     fun onClick(resource: SharedResource) = clickListener(resource.resourceId)
 }
