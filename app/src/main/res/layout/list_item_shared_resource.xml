@@ -19,7 +19,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> clickListener.onClick(sharedResource)}"
         android:orientation="vertical">
 
         <ImageView
@@ -33,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:sharedResourceImage="@{sharedResource}"
+            android:onClick="@{() -> clickListener.onClick(sharedResource)}"
             tools:srcCompat="@drawable/ic_baseline_whatshot_24" />
 
         <TextView
@@ -49,6 +49,7 @@
             app:layout_constraintStart_toEndOf="@+id/resource_image"
             app:layout_constraintTop_toTopOf="@+id/resource_image"
             app:sharedResourceName="@{sharedResource}"
+            android:onClick="@{() -> clickListener.onClick(sharedResource)}"
             tools:text="Your shared resource" />
 
 
