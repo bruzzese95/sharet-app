@@ -16,41 +16,68 @@
     </data>
 
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:onClick="@{() -> clickListener.onClick(sharedResource)}">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(sharedResource)}"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/resource_image"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_baseline_whatshot_24"
-        app:sharedResourceImage="@{sharedResource}"/>
+        <ImageView
+            android:id="@+id/resource_image"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:sharedResourceImage="@{sharedResource}"
+            tools:srcCompat="@drawable/ic_baseline_whatshot_24" />
 
-    <TextView
-        android:id="@+id/resource_name"
-        android:layout_width="0dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/roboto"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/resource_image"
-        app:layout_constraintTop_toTopOf="@+id/resource_image"
-        tools:text="Your shared resource"
-        app:sharedResourceName="@{sharedResource}"
-        />
+        <TextView
+            android:id="@+id/resource_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/resource_image"
+            app:layout_constraintTop_toTopOf="@+id/resource_image"
+            app:sharedResourceName="@{sharedResource}"
+            tools:text="Your shared resource" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/add_people_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:addUserImage="@{sharedResource}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/delete_image"
+            app:layout_constraintHorizontal_bias="0.919"
+            app:layout_constraintStart_toEndOf="@+id/resource_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.56"
+            tools:srcCompat="@drawable/ic_baseline_person_add_alt_1_24" />
+
+        <ImageView
+            android:id="@+id/delete_image"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="104dp"
+            app:deleteResourceImage="@{sharedResource}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.846"
+            app:layout_constraintStart_toEndOf="@+id/resource_name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.609"
+            tools:srcCompat="@drawable/ic_baseline_delete_24" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

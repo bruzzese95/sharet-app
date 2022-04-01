@@ -19,3 +19,18 @@ fun TextView.setSharedResourceName(item: SharedResource?) {
         text = item.resourceName
     }
 }
+
+@BindingAdapter("addUserImage")
+fun ImageView.setUserImage(item: SharedResource?) {
+    item?.let {
+        setImageResource(R.drawable.ic_baseline_person_add_alt_1_24)
+    }
+}
+
+
+@BindingAdapter("deleteResourceImage")
+fun ImageView.deleteResourceImage(item: SharedResource?) {
+    item?.let {
+        setImageResource(R.drawable.ic_baseline_delete_24)
+    }
+}

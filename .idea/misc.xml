@@ -18,6 +18,7 @@
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/custom_dialog_add_resource.xml" value="0.33" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/fragment_custom_dialog.xml" value="0.2689969604863222" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/fragment_input_resource.xml" value="0.2689969604863222" />
+        <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/fragment_login.xml" value="0.2689969604863222" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/fragment_shared_resource.xml" value="0.33" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/fragment_shared_resource_calendar.xml" value="0.2689969604863222" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/fragment_shared_resource_detail.xml" value="0.2689969604863222" />
@@ -27,10 +28,13 @@
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/list_item_shared_resource.xml" value="0.21" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/layout/text_item_view.xml" value="0.1522289766970618" />
         <entry key="..\:/Andoid App Examples/ShareT/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.28425925925925927" />
-        <entry key="..\:/Andoid App Examples/sharet-app/app/src/main/res/layout/calendar_event_item_view.xml" value="0.3421875" />
-        <entry key="..\:/Andoid App Examples/sharet-app/app/src/main/res/layout/fragment_custom_dialog_calendar.xml" value="0.3482789855072464" />
-        <entry key="..\:/Andoid App Examples/sharet-app/app/src/main/res/layout/fragment_shared_resource_calendar.xml" value="0.3482789855072464" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1235" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.1235" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/list_item_shared_resource.xml" value="0.5" />
         <entry key="app/src/main/res/layout/custom_dialog_add_resource.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.18697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_shared_resource.xml" value="0.25885416666666666" />
+        <entry key="app/src/main/res/layout/fragment_shared_resource_calendar.xml" value="0.18697916666666667" />
       </map>
     </option>
   </component>
