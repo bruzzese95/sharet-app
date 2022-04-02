@@ -36,21 +36,6 @@ class SharedResourceCalendarViewModel(
     fun getResource() = resource
 
 
-    private val _navigateToCustomDialogCalendar = MutableLiveData<Boolean>()
-    val navigateToCustomDialogCalendar: LiveData<Boolean>
-        get() = _navigateToCustomDialogCalendar
-
-
-    fun doneNavigating() {
-        _navigateToCustomDialogCalendar.value = null
-    }
-
-    fun onAddReservationButton() {
-        viewModelScope.launch {
-
-            _navigateToCustomDialogCalendar.value = true
-        }
-    }
 
 
 
@@ -87,31 +72,4 @@ class SharedResourceCalendarViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
-
-/*
-    *//**
-     * Variable that tells the fragment whether it should navigate to [SleepTrackerFragment].
-     *
-     * This is `private` because we don't want to expose the ability to set [MutableLiveData] to
-     * the [Fragment]
-     *//*
-    private val _navigateToSharedResource = MutableLiveData<Boolean?>()
-
-    *//**
-     * When true immediately navigate back to the [SleepTrackerFragment]
-     *//*
-    val navigateToSharedResource: LiveData<Boolean?>
-        get() = _navigateToSharedResource
-
-
-    *//**
-     * Call this immediately after navigating to [SleepTrackerFragment]
-     *//*
-    fun doneNavigating() {
-        _navigateToSharedResource.value = null
-    }
-
-    fun onClose() {
-        _navigateToSharedResource.value = true
-    }*/
 }

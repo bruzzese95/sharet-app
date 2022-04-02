@@ -98,6 +98,8 @@ class SharedResourceFragment : Fragment() {
             }
         }
 
+
+
         return binding.root
     }
 
