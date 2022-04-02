@@ -22,6 +22,7 @@
     <string name="event_name">Enter reservation name</string>
     <string name="reservation_title">Create your reservation</string>
     <string name="fill_fields">Please, fill in all fields.</string>
+    <string name="time_error">Please, start time must be earlier than end time.</string>
 
 
     <string name="login_btn">Login</string>
@@ -32,4 +33,8 @@
     <string name="end_time">End time</string>
     <string name="time_not_defined">_________</string>
     <string name="time_hint">00:00</string>
+    <string name="share_resource_text">Add users to share your resource</string>
+    <string name="username_text">Username</string>
+    <string name="add_user">Add user</string>
+    <string name="email_text">Email</string>
 </resources>

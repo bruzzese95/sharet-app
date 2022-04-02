@@ -212,12 +212,25 @@ class SharedResourceCalendarFragment : Fragment() {
         if (text.isBlank() or startTime.equals("null") or endTime.equals("null")) {
             Toast.makeText(requireContext(), R.string.fill_fields, Toast.LENGTH_LONG).show()
             return false
-        } else {
-            selectedDate?.let {
-                events[it] = events[it].orEmpty().plus(Event(UUID.randomUUID().toString(), text, it, startTime, endTime))
-                updateAdapterForDate(it)
+        }
+        else {
+
+            if (startTime > endTime) {
+                Toast.makeText(
+                    requireContext(),
+                    R.string.time_error,
+                    Toast.LENGTH_LONG
+                ).show()
+                return false
             }
-            return true
+            else {
+                selectedDate?.let {
+                    events[it] = events[it].orEmpty()
+                        .plus(Event(UUID.randomUUID().toString(), text, it, startTime, endTime))
+                    updateAdapterForDate(it)
+                }
+                return true
+            }
         }
     }
 
@@ -264,7 +277,7 @@ class SharedResourceCalendarFragment : Fragment() {
     private fun showCustomDialog() {
         val dialog = MaterialDialog(requireContext())
             .noAutoDismiss()
-            .customView(R.layout.fragment_custom_dialog_calendar)
+            .customView(R.layout.custom_dialog_calendar)
 
         dialog.window?.setBackgroundDrawableResource(R.drawable.round_corner)
 

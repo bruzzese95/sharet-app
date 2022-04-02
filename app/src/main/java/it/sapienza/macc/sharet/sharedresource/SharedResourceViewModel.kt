@@ -20,15 +20,51 @@ class SharedResourceViewModel(
     val resources = database.getAllResources()
 
 
+
+
+
+    private val _navigateToCustomDialogAddUser = MutableLiveData<Boolean>()
+    val navigateToCustomDialogAddUser: LiveData<Boolean>
+        get() = _navigateToCustomDialogAddUser
+
+
+    fun onAddUserButtonClicked() {
+        viewModelScope.launch {
+
+            _navigateToCustomDialogAddUser.value = true
+        }
+    }
+
+    fun onCustomDialogAddUserNavigated() {
+        _navigateToCustomDialogAddUser.value = null
+    }
+
+
+
+
+
+
     //Variable that tells the Fragment to navigate to a specific [SharedResource]
     private val _navigateToCustomDialogResource = MutableLiveData<Boolean>()
     val navigateToCustomDialogResource: LiveData<Boolean>
         get() = _navigateToCustomDialogResource
 
 
-    fun doneNavigating() {
+    fun onAddResourceButtonClicked() {
+        viewModelScope.launch {
+
+            _navigateToCustomDialogResource.value = true
+        }
+    }
+
+    fun onCustomDialogResourceNavigated() {
         _navigateToCustomDialogResource.value = null
     }
+
+
+
+
+
 
     private val _navigateToSharedResourceCalendar = MutableLiveData<Long>()
     val navigateToSharedResourceCalendar
@@ -38,9 +74,15 @@ class SharedResourceViewModel(
         _navigateToSharedResourceCalendar.value = id
     }
 
-    fun onSharedResourceDetailNavigated() {
+    fun onSharedResourceCalendarNavigated() {
         _navigateToSharedResourceCalendar.value = null
     }
+
+
+
+
+
+
 
     init {
         initializeSharedResource()
@@ -88,13 +130,6 @@ class SharedResourceViewModel(
         }
     }
 
-
-    fun onAddResourceButton() {
-        viewModelScope.launch {
-
-            _navigateToCustomDialogResource.value = true
-        }
-    }
 
     /**
      * Executes when the CLEAR button is clicked.

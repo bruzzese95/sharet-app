@@ -52,6 +52,10 @@ class SharedResourceFragment : Fragment() {
 
         binding.logoutButton.setOnClickListener { AuthUI.getInstance().signOut(requireContext()) }
 
+
+
+
+
         sharedResourceViewModel.navigateToCustomDialogResource.observe(viewLifecycleOwner
         ) { resource ->
             resource?.let {
@@ -66,9 +70,10 @@ class SharedResourceFragment : Fragment() {
                 )
                 // Reset state to make sure we only navigate once, even if the device
                 // has a configuration change.
-                sharedResourceViewModel.doneNavigating()
+                sharedResourceViewModel.onCustomDialogResourceNavigated()
             }
         }
+
 
 
         sharedResourceViewModel.navigateToSharedResourceCalendar.observe(viewLifecycleOwner
@@ -77,15 +82,32 @@ class SharedResourceFragment : Fragment() {
                 this.findNavController().navigate(
                     SharedResourceFragmentDirections.actionSharedResourceFragmentToSharedResourceCalendarFragment()
                 )
-                sharedResourceViewModel.onSharedResourceDetailNavigated()
+                sharedResourceViewModel.onSharedResourceCalendarNavigated()
             }
         }
+
+
+
+        sharedResourceViewModel.navigateToCustomDialogAddUser.observe(viewLifecycleOwner
+        ) { resource ->
+            resource?.let {
+                this.findNavController().navigate(
+                    SharedResourceFragmentDirections.actionSharedResourceFragmentToCustomDialogUserFragment()
+                )
+                sharedResourceViewModel.onCustomDialogAddUserNavigated()
+            }
+        }
+
+
+
 
 
         val adapter = SharedResourceAdapter(SharedResourceListener { resourceId ->
             sharedResourceViewModel.onSharedResourceButtonClicked(resourceId)
         }, DeleteResourceListener { resourceId ->
             sharedResourceViewModel.onClearWithId(resourceId)
+        }, AddUserListener {
+            sharedResourceViewModel.onAddUserButtonClicked()
         })
 
 

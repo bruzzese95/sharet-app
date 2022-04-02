@@ -19,15 +19,16 @@
             type="it.sapienza.macc.sharet.sharedresource.DeleteResourceListener" />
 
         <variable
-            name="sharedResourceViewModel"
-            type="it.sapienza.macc.sharet.sharedresource.SharedResourceViewModel" />
+            name="clickListenerAddUser"
+            type="it.sapienza.macc.sharet.sharedresource.AddUserListener" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".sharedresource.SharedResourceFragment">
 
         <ImageView
             android:id="@+id/resource_image"
@@ -72,7 +73,8 @@
             app:layout_constraintStart_toEndOf="@+id/resource_name"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.56"
-            tools:srcCompat="@drawable/ic_baseline_person_add_alt_1_24" />
+            tools:srcCompat="@drawable/ic_baseline_person_add_alt_1_24"
+            android:onClick="@{() -> clickListenerAddUser.onClick()}"/>
 
         <ImageView
             android:id="@+id/delete_image"

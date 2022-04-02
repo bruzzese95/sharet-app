@@ -11,7 +11,7 @@ import it.sapienza.macc.sharet.databinding.ListItemSharedResourceBinding
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
-class SharedResourceAdapter(val clickListenerResource: SharedResourceListener, val clickListenerDelete: DeleteResourceListener) : ListAdapter<SharedResource,
+class SharedResourceAdapter(val clickListenerResource: SharedResourceListener, val clickListenerDelete: DeleteResourceListener, val clickListenerAddUser: AddUserListener) : ListAdapter<SharedResource,
         SharedResourceAdapter.ViewHolder>(SharedResourceDiffCallback()) {
 
 
@@ -19,7 +19,7 @@ class SharedResourceAdapter(val clickListenerResource: SharedResourceListener, v
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.bind(clickListenerResource, clickListenerDelete, item)
+        holder.bind(clickListenerResource, clickListenerDelete, clickListenerAddUser, item)
     }
 
 
@@ -31,10 +31,11 @@ class SharedResourceAdapter(val clickListenerResource: SharedResourceListener, v
     class ViewHolder private constructor (val binding: ListItemSharedResourceBinding)
         : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(clickListenerResource: SharedResourceListener, clickListenerDelete: DeleteResourceListener, item: SharedResource) {
+        fun bind(clickListenerResource: SharedResourceListener, clickListenerDelete: DeleteResourceListener, clickListenerAddUser: AddUserListener, item: SharedResource) {
             binding.sharedResource = item
             binding.clickListenerResource = clickListenerResource
             binding.clickListenerDelete = clickListenerDelete
+            binding.clickListenerAddUser = clickListenerAddUser
             binding.executePendingBindings()
         }
 
@@ -71,4 +72,8 @@ class SharedResourceListener(val clickListener: (resourceId: Long) -> Unit) {
 
 class DeleteResourceListener(val clickListener: (resourceId: Long) -> Unit) {
     fun onClick(resource: SharedResource) = clickListener(resource.resourceId)
+}
+
+class AddUserListener(val clickListener: () -> Unit) {
+    fun onClick() = clickListener()
 }

@@ -21,6 +21,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/shared_resource_fragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_shared_resource_fragment_to_customDialogUserFragment"
+            app:destination="@id/customDialogUserFragment" />
     </fragment>
     <dialog
         android:id="@+id/custom_dialog"
@@ -64,4 +67,15 @@
             app:popUpTo="@id/sharedResourceCalendarFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/customDialogUserFragment"
+        android:name="it.sapienza.macc.sharet.customdialoguser.CustomDialogUserFragment"
+        android:label="CustomDialogUserFragment" >
+        <action
+            android:id="@+id/action_customDialogUserFragment_to_shared_resource_fragment"
+            app:destination="@id/shared_resource_fragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/shared_resource_fragment"
+            app:popUpToInclusive="true" />
+    </dialog>
 </navigation>
