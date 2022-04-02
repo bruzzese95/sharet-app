@@ -65,8 +65,8 @@ class SharedResourceCalendarFragment : Fragment() {
     private lateinit var binding: FragmentSharedResourceCalendarBinding
 
 
-    lateinit var preferences: SharedPreferences
-    lateinit var editor: SharedPreferences.Editor
+    private lateinit var preferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                savedInstanceState: Bundle?): View?  {

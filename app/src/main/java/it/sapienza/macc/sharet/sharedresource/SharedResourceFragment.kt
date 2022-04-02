@@ -1,6 +1,7 @@
 package it.sapienza.macc.sharet.sharedresource
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import it.sapienza.macc.sharet.R
 import it.sapienza.macc.sharet.auth.LoginViewModel
 import it.sapienza.macc.sharet.database.SharedResourceDatabase
 import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
+import it.sapienza.macc.sharet.sensor.MagSensorActivity
 
 /**
  * A simple [Fragment] subclass.
@@ -118,6 +120,15 @@ class SharedResourceFragment : Fragment() {
             it?.let {
                 adapter.submitList(it)
             }
+        }
+
+
+
+
+
+        binding.sensorButton.setOnClickListener {
+            val intent = Intent(requireContext(), MagSensorActivity::class.java)
+            startActivity(intent)
         }
 
 
