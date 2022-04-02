@@ -29,19 +29,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
-                android:text="@string/login_prompt"
+                android:text="@string/welcome_to_sharet_app"
                 android:textAlignment="center"
                 android:textSize="30sp"/>
 
-        <TextView
-                android:id="@+id/auth_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@color/colorAccent"
-                android:padding="10dp"
-                android:text="@string/login_btn"
-                android:textColor="@color/white"
-                android:textSize="26sp"/>
+        <Button
+            android:id="@+id/auth_button"
+            android:layout_width="112dp"
+            android:layout_height="59dp"
+            android:layout_gravity="center"
+            android:text="@string/login_btn"
+            android:textSize="20sp"/>
     </FrameLayout>
 </layout>
