@@ -3,7 +3,6 @@ package it.sapienza.macc.sharet.sharedresourcecalendar
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.*
-import it.sapienza.macc.sharet.database.SharedResource
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.network.SharedResourceProperty
@@ -31,11 +30,14 @@ class SharedResourceCalendarViewModel(
      */
     private val viewModelJob = Job()
     */
+
+
+    /*
     private val resource = MediatorLiveData<SharedResource>()
 
     fun getResource() = resource
 
-
+*/
 
 
 
@@ -50,8 +52,7 @@ class SharedResourceCalendarViewModel(
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
 
-
-    init {
+/*    init {
         //resource.addSource(database.getResourceWithId(sharedResourceKey), resource::setValue)
         getSharedResourceProperties()
     }
@@ -66,7 +67,7 @@ class SharedResourceCalendarViewModel(
                 _response.value = "Failure: ${e.message}"
             }
         }
-    }
+    }*/
 
     override fun onCleared() {
         super.onCleared()

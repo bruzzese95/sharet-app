@@ -2,8 +2,9 @@ package it.sapienza.macc.sharet.sharedresource
 
 import android.app.Application
 import androidx.lifecycle.*
-import it.sapienza.macc.sharet.database.SharedResource
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
+import it.sapienza.macc.sharet.database.SharedResourceEntity
+import it.sapienza.macc.sharet.repository.SharedResourceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -14,10 +15,15 @@ import kotlinx.coroutines.withContext
 class SharedResourceViewModel(
         val database: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
 
+    private val sharedResourceRepository = SharedResourceRepository(database)
 
-    private var resource = MutableLiveData<SharedResource?>()
 
-    val resources = database.getAllResources()
+    init {
+        viewModelScope.launch {
+            database.clear()
+            sharedResourceRepository.refreshSharedResourceList() }
+    }
+    val sharedResourcesList = sharedResourceRepository.sharedResourceList
 
 
 
@@ -80,20 +86,6 @@ class SharedResourceViewModel(
 
 
 
-
-
-
-
-    init {
-        initializeSharedResource()
-    }
-
-    private fun initializeSharedResource() {
-        viewModelScope.launch {
-            resource.value = getSharedResourceFromDatabase()
-        }
-    }
-
     /**
      *  Handling the case of the stopped app or forgotten recording,
      *  the start and end times will be the same.j
@@ -103,16 +95,16 @@ class SharedResourceViewModel(
      */
 
 
-    private suspend fun getSharedResourceFromDatabase(): SharedResource? {
+    private suspend fun getSharedResourceFromDatabase(): SharedResourceEntity? {
         var resource = database.getResource()
-        if (!resource?.resourceName.equals("not_initialized")) {
+        if (!resource?.name.equals("not_initialized")) {
             resource = null
         }
         return resource
     }
 
 
-    private suspend fun insert(resource: SharedResource) {
+    private suspend fun insert(resource: SharedResourceEntity) {
         withContext(Dispatchers.IO) {
             database.insert(resource)
         }
@@ -127,20 +119,6 @@ class SharedResourceViewModel(
     private suspend fun clearWithId(key: Long) {
         withContext(Dispatchers.IO) {
             database.clearWithId(key)
-        }
-    }
-
-
-    /**
-     * Executes when the CLEAR button is clicked.
-     */
-    fun onClear() {
-        viewModelScope.launch {
-            // Clear the database table.
-            clear()
-
-            // And clear tonight since it's no longer in the database
-            resource.value = null
         }
     }
 

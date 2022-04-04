@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import it.sapienza.macc.sharet.database.SharedResource
+import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.databinding.ListItemSharedResourceBinding
+import it.sapienza.macc.sharet.domain.SharedResource
 
 
 // Create the basic adapter extending from RecyclerView.Adapter
@@ -55,23 +56,23 @@ class SharedResourceAdapter(val clickListenerResource: SharedResourceListener, v
 
 class SharedResourceDiffCallback : DiffUtil.ItemCallback<SharedResource>() {
     override fun areItemsTheSame(oldItem: SharedResource, newItem: SharedResource): Boolean {
-        return oldItem.resourceId == newItem.resourceId
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: SharedResource, newItem: SharedResource): Boolean {
-        return oldItem == newItem
+        return oldItem.equals(newItem)
     }
 }
 
 
 
 
-class SharedResourceListener(val clickListener: (resourceId: Long) -> Unit) {
-    fun onClick(resource: SharedResource) = clickListener(resource.resourceId)
+class SharedResourceListener(val clickListener: (id: Long) -> Unit) {
+    fun onClick(resource: SharedResource) = clickListener(resource.id)
 }
 
-class DeleteResourceListener(val clickListener: (resourceId: Long) -> Unit) {
-    fun onClick(resource: SharedResource) = clickListener(resource.resourceId)
+class DeleteResourceListener(val clickListener: (id: Long) -> Unit) {
+    fun onClick(resource: SharedResource) = clickListener(resource.id)
 }
 
 class AddUserListener(val clickListener: () -> Unit) {

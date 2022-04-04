@@ -116,14 +116,11 @@ class SharedResourceFragment : Fragment() {
 
         binding.rvSharedResource.adapter = adapter
 
-        sharedResourceViewModel.resources.observe(viewLifecycleOwner) {
+        sharedResourceViewModel.sharedResourcesList.observe(viewLifecycleOwner) {
             it?.let {
                 adapter.submitList(it)
             }
         }
-
-
-
 
 
         binding.sensorButton.setOnClickListener {
@@ -156,6 +153,7 @@ class SharedResourceFragment : Fragment() {
                         FirebaseAuth.getInstance().currentUser?.displayName,
                         sharedPref?.getString("id_token", null) //TODO WIP
                     )
+                    //Log.i(TAG, sharedPref?.getString("id_token", null).toString())
                 }
                 LoginViewModel.AuthenticationState.UNAUTHENTICATED -> {
                     Log.i(TAG, "Unauthenticated")
