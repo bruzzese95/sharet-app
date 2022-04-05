@@ -4,19 +4,18 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import it.sapienza.macc.sharet.domain.SharedResource
-import it.sapienza.macc.sharet.domain.User
 
 @Entity(tableName = "shared_resource_table")
 data class SharedResourceEntity(
 
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
+    var id: Int = 0,
 
     @ColumnInfo(name = "resource_name")
     var name: String = "not_initialized",
 
     @ColumnInfo(name = "owner_id")
-    var owner_id: Long = 0L
+    var owner_id: String = "not_initialized"
 )
 
 

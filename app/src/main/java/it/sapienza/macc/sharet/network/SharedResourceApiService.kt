@@ -4,15 +4,15 @@ import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import it.sapienza.macc.sharet.domain.SharedResource
+import it.sapienza.macc.sharet.domain.User
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 private const val BASE_URL = "http://10.0.2.2:8000/"
@@ -23,8 +23,13 @@ interface SharedResourceApiService {
     @GET("resource/all")
     fun getSharedResourcesAsync(): Deferred<SharedResourceDtoContainer>
 
-    /*@POST("resource/")
-    fun createResource(@Body )*/
+    /*@Headers("Content-Type: application/json")*/
+    @POST("resource/")
+    fun addResource(@Body resourceData: SharedResource): Deferred<SharedResourceDto>
+
+    /*@Headers("Content-Type: application/json")*/
+    @POST("user/")
+    fun addUser(@Body userData: User): Deferred<User>
 }
 
 /**
@@ -37,11 +42,14 @@ private val moshi = Moshi.Builder()
 
 object SharedResourceApi {
 
+    private val client = OkHttpClient.Builder().build()
+
     // Configure retrofit to parse JSON and use coroutines
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .client(client)
         .build()
 
     val retrofitService: SharedResourceApiService = retrofit.create(SharedResourceApiService::class.java)

@@ -75,11 +75,11 @@ class SharedResourceViewModel(
 
 
 
-    private val _navigateToSharedResourceCalendar = MutableLiveData<Long>()
+    private val _navigateToSharedResourceCalendar = MutableLiveData<Int>()
     val navigateToSharedResourceCalendar
         get() = _navigateToSharedResourceCalendar
 
-    fun onSharedResourceButtonClicked(id: Long) {
+    fun onSharedResourceButtonClicked(id: Int) {
         _navigateToSharedResourceCalendar.value = id
     }
 
@@ -119,13 +119,13 @@ class SharedResourceViewModel(
         }
     }
 
-    private suspend fun clearWithId(key: Long) {
+    private suspend fun clearWithId(key: Int) {
         withContext(Dispatchers.IO) {
             resourceDatabase.clearWithId(key)
         }
     }
 
-    fun onClearWithId(key: Long) {
+    fun onClearWithId(key: Int) {
         viewModelScope.launch {
             // Clear the database table.
             clearWithId(key)

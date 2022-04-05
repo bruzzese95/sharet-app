@@ -6,6 +6,6 @@ package it.sapienza.macc.sharet.domain
  * These are the objects that should be displayed on screen, or manipulated by the app.
  */
 class User(
-    val id: Long,
+    val idToken: String,
     val name: String
 )

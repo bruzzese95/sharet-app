@@ -33,7 +33,11 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import it.sapienza.macc.sharet.R
+import it.sapienza.macc.sharet.database.UserEntity
 import it.sapienza.macc.sharet.databinding.FragmentLoginBinding
+import it.sapienza.macc.sharet.network.SharedResourceApi
+import it.sapienza.macc.sharet.network.UserDto
+import it.sapienza.macc.sharet.network.toDomainObject
 
 class LoginFragment : Fragment() {
 
@@ -130,13 +134,21 @@ class LoginFragment : Fragment() {
                     val idToken = task.result?.token;
                     if (idToken != null) {
                         Log.i("id_token", "idToken = $idToken")
-                        sharedPref?.edit()?.putString("id_token", idToken)?.apply()
+                        sharedPref?.edit()?.putString("user_uid", user.uid)?.apply()
+
+                        val userToDB = UserEntity()
+                        userToDB.idToken = user.uid
+                        userToDB.name = user.displayName!!
+
+                        val userDto = userToDB.let { UserDto(it.idToken, it.name) }
+                        val userSend = userDto!!.toDomainObject()
+
+                        val retrofit = SharedResourceApi.retrofitService.addUser(userSend)
                     }
                 } else {
                     Log.e(TAG, task.exception.toString());
                 }
             }
-
     }
 
 }

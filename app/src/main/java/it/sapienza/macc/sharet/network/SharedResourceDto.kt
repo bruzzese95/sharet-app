@@ -3,7 +3,6 @@ package it.sapienza.macc.sharet.network
 import com.squareup.moshi.JsonClass
 import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.domain.SharedResource
-import it.sapienza.macc.sharet.domain.User
 
 /**
  * DataTransferObjects go in this file.
@@ -13,9 +12,9 @@ import it.sapienza.macc.sharet.domain.User
 
 @JsonClass(generateAdapter = true)
 data class SharedResourceDto (
-    val id: Long,
+    val id: Int,
     val name: String,
-    val owner_id: Long
+    val owner_id: String
 )
 
 @JsonClass(generateAdapter = true)
@@ -35,6 +34,20 @@ fun SharedResourceDtoContainer.toDomainObject(): List<SharedResource> {
         )
     }
 }
+
+/**
+ * Convert DTO to domain object
+ */
+fun SharedResourceDto.toDomainObject(): SharedResource {
+    return SharedResource(
+            id = id,
+            name = name,
+            owner_id = owner_id
+        )
+}
+
+
+
 
 /**
  * Convert DTO to database object

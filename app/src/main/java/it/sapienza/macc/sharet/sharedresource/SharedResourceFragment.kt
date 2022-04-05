@@ -148,11 +148,11 @@ class SharedResourceFragment : Fragment() {
             when(authState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     Log.i(TAG, "Authenticated")
-                    binding.textView.text = String.format(
+                    /*binding.textView.text = String.format(
                         "Hello %s! Your idToken is %s",
                         FirebaseAuth.getInstance().currentUser?.displayName,
                         sharedPref?.getString("id_token", null) //TODO WIP
-                    )
+                    )*/
                     //Log.i(TAG, sharedPref?.getString("id_token", null).toString())
                 }
                 LoginViewModel.AuthenticationState.UNAUTHENTICATED -> {

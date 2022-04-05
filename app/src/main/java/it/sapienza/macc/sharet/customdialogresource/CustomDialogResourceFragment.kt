@@ -1,5 +1,6 @@
 package it.sapienza.macc.sharet.customdialogresource
 
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,9 +23,13 @@ class CustomDialogResourceFragment: DialogFragment() {
         val application = requireNotNull(this.activity).application
 
 
+        val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
+
+
+
         //Create an instance of the ViewModelFactory
         val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
-        val viewModelFactory = CustomDialogResourceViewModelFactory(dataSource)
+        val viewModelFactory = CustomDialogResourceViewModelFactory(sharedPref, dataSource)
 
         //Get a reference to the ViewModel associated with this fragment
         val customDialogViewModel =

@@ -3,14 +3,13 @@ package it.sapienza.macc.sharet.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import it.sapienza.macc.sharet.domain.SharedResource
 import it.sapienza.macc.sharet.domain.User
 
 @Entity(tableName = "user_table")
 data class UserEntity(
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0L,
+    @PrimaryKey(autoGenerate = false)
+    var idToken: String = "not_initialized",
 
     @ColumnInfo(name = "user_name")
     var name: String = "not_initialized"
@@ -23,7 +22,7 @@ data class UserEntity(
 fun List<UserEntity>.toDomainModel(): List<User> {
     return map { dbInstance ->
         User(
-            id = dbInstance.id,
+            idToken = dbInstance.idToken,
             name = dbInstance.name
         )
     }

@@ -6,8 +6,8 @@ package it.sapienza.macc.sharet.domain
  * These are the objects that should be displayed on screen, or manipulated by the app.
  */
 class SharedResource (
-    val id: Long,
+    val id: Int,
     val name: String,
-    val owner_id: Long
+    val owner_id: String
     /*val group: List<UserProperty>*/
 )

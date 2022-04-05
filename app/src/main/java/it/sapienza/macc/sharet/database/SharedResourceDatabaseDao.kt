@@ -25,7 +25,7 @@ interface SharedResourceDatabaseDao {
      * @param key resource id to match
      */
     @Query("SELECT * from shared_resource_table WHERE id = :key")
-    suspend fun get(key: Long): SharedResourceEntity?
+    suspend fun get(key: Int): SharedResourceEntity?
 
     /**
      * Deletes all values from the table.
@@ -36,7 +36,7 @@ interface SharedResourceDatabaseDao {
     suspend fun clear()
 
     @Query("DELETE FROM shared_resource_table WHERE id = :key")
-    suspend fun clearWithId(key: Long)
+    suspend fun clearWithId(key: Int)
 
 
     /**
@@ -55,7 +55,8 @@ interface SharedResourceDatabaseDao {
      * Selects and returns the resource with given name.
      */
     @Query("SELECT * from shared_resource_table WHERE id = :key")
-    fun getResourceWithId(key: Long): LiveData<SharedResourceEntity>
+    fun getResourceWithId(key: Int): LiveData<SharedResourceEntity>
+
 
 
     /**

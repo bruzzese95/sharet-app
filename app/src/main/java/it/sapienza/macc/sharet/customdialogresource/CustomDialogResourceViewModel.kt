@@ -1,19 +1,23 @@
 package it.sapienza.macc.sharet.customdialogresource
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
-import it.sapienza.macc.sharet.domain.SharedResource
+import it.sapienza.macc.sharet.network.SharedResourceApi
+import it.sapienza.macc.sharet.network.SharedResourceDto
+import it.sapienza.macc.sharet.network.toDomainObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.random.Random
 
 class CustomDialogResourceViewModel(
-    val database: SharedResourceDatabaseDao) : ViewModel() {
-
+    val sharedPreferences: SharedPreferences?,
+    val resourceDatabase: SharedResourceDatabaseDao) : ViewModel() {
 
     private val _navigateToSharedResource = MutableLiveData<Boolean?>()
     val navigateToSharedResource: LiveData<Boolean?>
@@ -25,7 +29,7 @@ class CustomDialogResourceViewModel(
 
     private suspend fun update(resource: SharedResourceEntity) {
         withContext(Dispatchers.IO) {
-            database.update(resource)
+            resourceDatabase.update(resource)
         }
     }
 
@@ -37,9 +41,21 @@ class CustomDialogResourceViewModel(
     fun onSetSharedResourceName(name: String) {
         viewModelScope.launch {
             val newResource = SharedResourceEntity()
+            newResource.id = Random.nextInt(1, 2147483646)
             newResource.name = name
-            database.insert(newResource)
+            newResource.owner_id = sharedPreferences?.getString("user_uid", null)!!
+            /*resourceDatabase.insert(newResource)
 
+            val values = resourceDatabase.getAll()
+
+            val resourceRoom = resourceDatabase.getResource()
+
+            Log.i("ResourceRoom id: ", resourceRoom?.id.toString())*/
+
+            val resourceDto = newResource.let { SharedResourceDto(it.id, it.name, it.owner_id) }
+
+            val resource = resourceDto!!.toDomainObject()
+            val retrofit = SharedResourceApi.retrofitService.addResource(resource)
             _navigateToSharedResource.value = true
         }
     }

@@ -67,11 +67,11 @@ class SharedResourceDiffCallback : DiffUtil.ItemCallback<SharedResource>() {
 
 
 
-class SharedResourceListener(val clickListener: (id: Long) -> Unit) {
+class SharedResourceListener(val clickListener: (id: Int) -> Unit) {
     fun onClick(resource: SharedResource) = clickListener(resource.id)
 }
 
-class DeleteResourceListener(val clickListener: (id: Long) -> Unit) {
+class DeleteResourceListener(val clickListener: (id: Int) -> Unit) {
     fun onClick(resource: SharedResource) = clickListener(resource.id)
 }
 

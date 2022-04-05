@@ -12,7 +12,7 @@ import it.sapienza.macc.sharet.domain.User
 
 @JsonClass(generateAdapter = true)
 data class UserDto (
-    val id: Long,
+    val idToken: String,
     val name: String
 )
 
@@ -21,13 +21,26 @@ data class UserDtoContainer (
     val UserDtoList: List<UserDto>
 )
 
+
+
+/**
+ * Convert DTO to domain object
+ */
+fun UserDto.toDomainObject(): User {
+    return User(
+        idToken = idToken,
+        name = name
+    )
+}
+
+
 /**
  * Convert DTO to domain object
  */
 fun UserDtoContainer.toDomainObject(): List<User> {
     return UserDtoList.map { dto ->
         User(
-            id = dto.id,
+            idToken = dto.idToken,
             name = dto.name
         )
     }
