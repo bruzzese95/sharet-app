@@ -4,12 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
-import it.sapienza.macc.sharet.database.User
+import it.sapienza.macc.sharet.database.UserEntity
 import it.sapienza.macc.sharet.database.UserDatabaseDao
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CustomDialogUserViewModel(
     val database: UserDatabaseDao
@@ -31,9 +28,8 @@ class CustomDialogUserViewModel(
     // not the lambda.
     fun onAddedUsername(email: String) {
         viewModelScope.launch {
-            val newUser = User()
-            newUser.email = email
-            database.insert(newUser)
+            /*val newUser = UserEntity()
+            database.insert(newUser)*/
 
             _navigateToSharedResource.value = true
         }

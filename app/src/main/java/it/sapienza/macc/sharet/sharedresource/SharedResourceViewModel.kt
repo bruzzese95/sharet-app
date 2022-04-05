@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.repository.SharedResourceRepository
+import it.sapienza.macc.sharet.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -13,17 +14,19 @@ import kotlinx.coroutines.withContext
  * ViewModel for SharedResourceFragment
  */
 class SharedResourceViewModel(
-        val database: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
+    val resourceDatabase: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
 
-    private val sharedResourceRepository = SharedResourceRepository(database)
+    private val sharedResourceRepository = SharedResourceRepository(resourceDatabase)
+
 
 
     init {
         viewModelScope.launch {
-            database.clear()
+            resourceDatabase.clear()
             sharedResourceRepository.refreshSharedResourceList() }
     }
     val sharedResourcesList = sharedResourceRepository.sharedResourceList
+
 
 
 
@@ -96,7 +99,7 @@ class SharedResourceViewModel(
 
 
     private suspend fun getSharedResourceFromDatabase(): SharedResourceEntity? {
-        var resource = database.getResource()
+        var resource = resourceDatabase.getResource()
         if (!resource?.name.equals("not_initialized")) {
             resource = null
         }
@@ -106,19 +109,19 @@ class SharedResourceViewModel(
 
     private suspend fun insert(resource: SharedResourceEntity) {
         withContext(Dispatchers.IO) {
-            database.insert(resource)
+            resourceDatabase.insert(resource)
         }
     }
 
     private suspend fun clear() {
         withContext(Dispatchers.IO) {
-            database.clear()
+            resourceDatabase.clear()
         }
     }
 
     private suspend fun clearWithId(key: Long) {
         withContext(Dispatchers.IO) {
-            database.clearWithId(key)
+            resourceDatabase.clearWithId(key)
         }
     }
 

@@ -46,6 +46,9 @@ class CustomDialogResourceFragment: DialogFragment() {
         binding.submitCreateResourceButton.setOnClickListener { view: View ->
             customDialogViewModel.onSetSharedResourceName(binding.nameResource.text.toString())
 
+            //add interaction with DB
+
+
             this.findNavController().navigate(CustomDialogResourceFragmentDirections.actionCustomDialogToSharedResourceFragment())
         }
 

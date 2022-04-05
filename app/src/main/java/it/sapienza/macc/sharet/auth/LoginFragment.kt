@@ -119,7 +119,7 @@ class LoginFragment : Fragment() {
         }
     }
 
-    //TODO Locate this logic in a more suitable step in the lifecycle of the app
+
     private fun saveUserInfo() {
         val user = FirebaseAuth.getInstance().currentUser
         val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)

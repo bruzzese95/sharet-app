@@ -4,8 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(entities = [SharedResourceEntity::class], version = 1, exportSchema = false)
+@Database(entities = [SharedResourceEntity::class], version = 3, exportSchema = false)
 abstract class SharedResourceDatabase: RoomDatabase() {
 
     abstract val sharedResourceDatabaseDao: SharedResourceDatabaseDao

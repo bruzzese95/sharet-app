@@ -6,29 +6,25 @@ import androidx.room.PrimaryKey
 import it.sapienza.macc.sharet.domain.SharedResource
 import it.sapienza.macc.sharet.domain.User
 
-@Entity(tableName = "shared_resource_table")
-data class SharedResourceEntity(
+@Entity(tableName = "user_table")
+data class UserEntity(
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0L,
 
-    @ColumnInfo(name = "resource_name")
-    var name: String = "not_initialized",
-
-    @ColumnInfo(name = "owner_id")
-    var owner_id: Long = 0L
+    @ColumnInfo(name = "user_name")
+    var name: String = "not_initialized"
 )
 
 
 /**
  * Converts from database object to domain object
  * */
-fun List<SharedResourceEntity>.toDomainModel(): List<SharedResource> {
+fun List<UserEntity>.toDomainModel(): List<User> {
     return map { dbInstance ->
-        SharedResource(
+        User(
             id = dbInstance.id,
-            name = dbInstance.name,
-            owner_id = dbInstance.owner_id
+            name = dbInstance.name
         )
     }
 

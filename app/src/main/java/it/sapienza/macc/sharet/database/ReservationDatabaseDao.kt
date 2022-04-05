@@ -7,5 +7,5 @@ import androidx.room.Insert
 interface ReservationDatabaseDao {
 
     @Insert
-    suspend fun insert(reservation: Reservation)
+    suspend fun insert(reservationEntity: ReservationEntity)
 }

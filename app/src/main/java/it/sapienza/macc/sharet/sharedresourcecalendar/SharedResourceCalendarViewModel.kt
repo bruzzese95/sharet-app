@@ -1,18 +1,10 @@
 package it.sapienza.macc.sharet.sharedresourcecalendar
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.lifecycle.*
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
-import it.sapienza.macc.sharet.network.SharedResourceApi
-import it.sapienza.macc.sharet.network.SharedResourceProperty
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SharedResourceCalendarViewModel(
     //private val sharedResourceKey: Long = 0L,
