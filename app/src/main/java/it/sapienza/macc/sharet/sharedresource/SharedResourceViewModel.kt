@@ -1,12 +1,13 @@
 package it.sapienza.macc.sharet.sharedresource
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.*
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.repository.SharedResourceRepository
-import it.sapienza.macc.sharet.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -14,6 +15,7 @@ import kotlinx.coroutines.withContext
  * ViewModel for SharedResourceFragment
  */
 class SharedResourceViewModel(
+    val sharedPreferences: SharedPreferences?,
     val resourceDatabase: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
 
     private val sharedResourceRepository = SharedResourceRepository(resourceDatabase)
@@ -23,7 +25,9 @@ class SharedResourceViewModel(
     init {
         viewModelScope.launch {
             resourceDatabase.clear()
-            sharedResourceRepository.refreshSharedResourceList() }
+            delay(200)
+            val user_uid = sharedPreferences?.getString("user_uid", null)
+            if(user_uid != null)    sharedResourceRepository.refreshSharedResourceList(user_uid) }
     }
     val sharedResourcesList = sharedResourceRepository.sharedResourceList
 

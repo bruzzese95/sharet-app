@@ -38,11 +38,14 @@ class SharedResourceFragment : Fragment() {
             container, false
         )
 
+        val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
+
+
         val application = requireNotNull(this.activity).application
 
         val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
 
-        val viewModelFactory = SharedResourceViewModelFactory(dataSource, application)
+        val viewModelFactory = SharedResourceViewModelFactory(sharedPref, dataSource, application)
 
         val sharedResourceViewModel =
             ViewModelProvider(
@@ -52,7 +55,8 @@ class SharedResourceFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-        binding.logoutButton.setOnClickListener { AuthUI.getInstance().signOut(requireContext()) }
+        binding.logoutButton.setOnClickListener {
+            AuthUI.getInstance().signOut(requireContext()) }
 
 
 

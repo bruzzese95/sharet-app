@@ -23,6 +23,9 @@ interface SharedResourceApiService {
     @GET("resource/all")
     fun getSharedResourcesAsync(): Deferred<SharedResourceDtoContainer>
 
+    @GET("resource/{user_id}")
+    fun getSharedResources(@Path("user_id") user_id: String): Deferred<SharedResourceDtoContainer>
+
     /*@Headers("Content-Type: application/json")*/
     @POST("resource/")
     fun addResource(@Body resourceData: SharedResource): Deferred<SharedResourceDto>

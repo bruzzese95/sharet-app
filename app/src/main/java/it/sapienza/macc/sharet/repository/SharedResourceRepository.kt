@@ -18,10 +18,19 @@ class SharedResourceRepository(private val dao: SharedResourceDatabaseDao) {
     /*
     * To refresh the offline cache.
     */
-    suspend fun refreshSharedResourceList() {
+    suspend fun refreshAllSharedResourceList() {
         withContext(Dispatchers.IO) {
             val sharedResourceDtoList = SharedResourceApi.retrofitService.getSharedResourcesAsync().await()
             dao.insertAll(*sharedResourceDtoList.toDbObject()) //Note the asterisk * is the spread operator. It allows you to pass in an array to a function that expects varargs.
+        }
+    }
+
+
+    suspend fun refreshSharedResourceList(user_id: String) {
+        withContext(Dispatchers.IO) {
+            val sharedResourceDtoList = SharedResourceApi.retrofitService.getSharedResources(user_id).await()
+            dao.insertAll(*sharedResourceDtoList.toDbObject())
+
         }
     }
 }

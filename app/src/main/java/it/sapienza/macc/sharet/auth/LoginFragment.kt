@@ -75,7 +75,10 @@ class LoginFragment : Fragment() {
         // Give users the option to sign in / register with their email or Google account.
         // If users choose to register with their email, they will need to create a password as well.
         val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build()
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            /*
+            AuthUI.IdpConfig.FacebookBuilder().build(),*/
+            AuthUI.IdpConfig.GoogleBuilder().build()
         )
 
         // Create and launch sign-in intent
@@ -133,7 +136,7 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     val idToken = task.result?.token;
                     if (idToken != null) {
-                        Log.i("id_token", "idToken = $idToken")
+                        Log.i("user_uid", "user_uid = ${user.uid}")
                         sharedPref?.edit()?.putString("user_uid", user.uid)?.apply()
 
                         val userToDB = UserEntity()
