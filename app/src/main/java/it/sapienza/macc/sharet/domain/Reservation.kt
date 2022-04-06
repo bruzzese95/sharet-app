@@ -3,11 +3,11 @@ package it.sapienza.macc.sharet.domain
 import java.time.LocalDate
 
 class Reservation(
-    val id: Long,
+    val id: Int,
+    val idResource: Int,
+    val idOwner: String,
     val name: String,
-    /*val owner: User,
-    val resource: SharedResource,
-    val date: LocalDate,
+    val date: String,
     val startTime: String,
-    val endTime: String*/
+    val endTime: String
 )

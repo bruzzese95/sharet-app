@@ -10,10 +10,25 @@ import it.sapienza.macc.sharet.domain.User
 data class ReservationEntity(
 
         @PrimaryKey(autoGenerate = true)
-        var id: Long = 0L,
+        var id: Int = 0,
 
-        @ColumnInfo(name = "reservation_name")
-        var name: String = "not_initialized"
+        @ColumnInfo(name = "idResource")
+        var idResource: Int = 0,
+
+        @ColumnInfo(name = "idOwner")
+        var idOwner: String = "not_initialized",
+
+        @ColumnInfo(name = "name")
+        var name: String = "not_initialized",
+
+        @ColumnInfo(name = "date")
+        var date: String = "not_initialized",
+
+        @ColumnInfo(name = "start_time")
+        var startTime: String = "not_initialized",
+
+        @ColumnInfo(name = "end_time")
+        var endTime: String = "not_initialized"
 
 )
 
@@ -25,7 +40,12 @@ fun List<ReservationEntity>.toDomainModel(): List<Reservation> {
         return map { dbInstance ->
                 Reservation(
                         id = dbInstance.id,
-                        name = dbInstance.name
+                        idResource = dbInstance.idResource,
+                        idOwner = dbInstance.idOwner,
+                        name = dbInstance.name,
+                        date = dbInstance.date,
+                        startTime = dbInstance.startTime,
+                        endTime = dbInstance.endTime
                 )
         }
 

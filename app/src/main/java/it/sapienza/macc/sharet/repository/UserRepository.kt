@@ -16,7 +16,7 @@ class UserRepository(private val dao: UserDatabaseDao) {
     /*
     * To refresh the offline cache.
     */
-    suspend fun refreshSharedResourceList() {
+    suspend fun refreshUserList() {
         withContext(Dispatchers.IO) {
             /*val sharedResourceDtoList = SharedResourceApi.retrofitService.getSharedResourcesAsync().await()*/
 //            dao.insertAll(*sharedResourceDtoList.toDbObject()) //Note the asterisk * is the spread operator. It allows you to pass in an array to a function that expects varargs.
