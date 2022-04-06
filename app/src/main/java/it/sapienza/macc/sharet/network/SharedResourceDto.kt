@@ -55,7 +55,9 @@ fun SharedResourceDto.toDomainObject(): SharedResource {
 fun SharedResourceDtoContainer.toDbObject(): Array<SharedResourceEntity> {
     return sharedResourceDtoList.map { dto ->
         SharedResourceEntity(
-            name = dto.name
+            id = dto.id,
+            name = dto.name,
+            owner_id = dto.owner_id
         )
     }.toTypedArray()
 }

@@ -2,6 +2,7 @@ package it.sapienza.macc.sharet.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import it.sapienza.macc.sharet.database.SharedResourceDatabase
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.toDomainModel
 import it.sapienza.macc.sharet.domain.SharedResource

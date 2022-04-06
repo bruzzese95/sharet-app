@@ -33,6 +33,9 @@ interface SharedResourceApiService {
     /*@Headers("Content-Type: application/json")*/
     @POST("user/")
     fun addUser(@Body userData: User): Deferred<User>
+
+    @DELETE("resource/{resource_id}")
+    fun deleteResource(@Path("resource_id") resource_id: Int): Deferred<String>
 }
 
 /**

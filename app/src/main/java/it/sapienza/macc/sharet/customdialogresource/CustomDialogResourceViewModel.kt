@@ -44,8 +44,9 @@ class CustomDialogResourceViewModel(
             newResource.id = Random.nextInt(1, 2147483646)
             newResource.name = name
             newResource.owner_id = sharedPreferences?.getString("user_uid", null)!!
-            /*resourceDatabase.insert(newResource)
+            resourceDatabase.insert(newResource)
 
+            /*
             val values = resourceDatabase.getAll()
 
             val resourceRoom = resourceDatabase.getResource()

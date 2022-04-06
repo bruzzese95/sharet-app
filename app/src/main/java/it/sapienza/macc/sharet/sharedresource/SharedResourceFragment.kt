@@ -22,6 +22,7 @@ import it.sapienza.macc.sharet.R
 import it.sapienza.macc.sharet.auth.LoginViewModel
 import it.sapienza.macc.sharet.database.SharedResourceDatabase
 import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
+import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.sensor.MagSensorActivity
 
 /**
@@ -161,6 +162,8 @@ class SharedResourceFragment : Fragment() {
         dialog.findViewById<TextView>(R.id.positive_button).setOnClickListener{
 
             binding.sharedResourceViewModel?.onClearWithId(resourceId)
+
+            val retrofit = SharedResourceApi.retrofitService.deleteResource(resourceId)
 
             dialog.dismiss()
         }
