@@ -15,7 +15,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
 
 
-private const val BASE_URL = "http://10.0.2.2:8000/"
+private const val BASE_URL = "https://sharet-2022.herokuapp.com/"
 
 
 interface SharedResourceApiService {
