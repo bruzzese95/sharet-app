@@ -23,6 +23,8 @@
     <string name="reservation_title">Create your reservation</string>
     <string name="fill_fields">Please, fill in all fields.</string>
     <string name="time_error">Please, start time must be earlier than end time.</string>
+    <string name="alert_delete">Are you sure?</string>
+    <string name="loose_delete">You will permanently lose all reservations.</string>
 
 
     <string name="login_btn">Login</string>

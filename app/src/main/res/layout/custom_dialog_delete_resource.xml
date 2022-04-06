@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="99dp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="26dp"
+            app:srcCompat="@drawable/ic_round_warning_24" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="204dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="2dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/alert_delete"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginBottom="2dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="@string/loose_delete"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/negative_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/close"
+            android:textColor="#0094DE"
+            android:textSize="17sp"
+
+            />
+
+        <TextView
+            android:id="@+id/positive_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/delete"
+            android:textColor="@color/red"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

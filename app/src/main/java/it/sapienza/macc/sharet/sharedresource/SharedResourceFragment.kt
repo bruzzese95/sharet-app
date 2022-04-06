@@ -8,10 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import it.sapienza.macc.sharet.R
@@ -111,7 +115,7 @@ class SharedResourceFragment : Fragment() {
         val adapter = SharedResourceAdapter(SharedResourceListener { resourceId ->
             sharedResourceViewModel.onSharedResourceButtonClicked(resourceId)
         }, DeleteResourceListener { resourceId ->
-            sharedResourceViewModel.onClearWithId(resourceId)
+            showDeleteDialog(resourceId)
         }, AddUserListener {
             sharedResourceViewModel.onAddUserButtonClicked()
         })
@@ -138,10 +142,35 @@ class SharedResourceFragment : Fragment() {
     }
 
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         handleAuthState()
+    }
+
+
+    private fun showDeleteDialog(resourceId: Int) {
+        val dialog = MaterialDialog(requireContext())
+            .noAutoDismiss()
+            .customView(R.layout.custom_dialog_delete_resource)
+
+        dialog.window?.setBackgroundDrawableResource(R.drawable.round_corner)
+
+        dialog.findViewById<TextView>(R.id.positive_button).setOnClickListener{
+
+            binding.sharedResourceViewModel?.onClearWithId(resourceId)
+
+            dialog.dismiss()
+        }
+
+        dialog.findViewById<TextView>(R.id.negative_button).setOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
     }
 
     private fun handleAuthState() {
