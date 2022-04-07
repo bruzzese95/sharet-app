@@ -27,22 +27,27 @@ interface SharedResourceApiService {
     @GET("resource/{user_id}")
     fun getSharedResources(@Path("user_id") user_id: String): Deferred<SharedResourceDtoContainer>
 
-    /*@Headers("Content-Type: application/json")*/
+    @GET("reservation/{resource_id}/{date}")
+    fun getReservation(@Path("resource_id") resource_id: Int, @Path("date") date: String): Deferred<ReservationDtoContainer>
+
     @POST("resource/")
     fun addResource(@Body resourceData: SharedResource): Deferred<SharedResourceDto>
 
-    /*@Headers("Content-Type: application/json")*/
     @POST("user/")
     fun addUser(@Body userData: User): Deferred<User>
-
-    @DELETE("resource/{resource_id}")
-    fun deleteResource(@Path("resource_id") resource_id: Int): Deferred<String>
 
     @POST("reservation/")
     fun addReservation(@Body reservationData: Reservation): Deferred<ReservationDto>
 
-    @GET("reservation/{resource_id}/{date}")
-    fun getReservation(@Path("resource_id") resource_id: Int, @Path("date") date: String): Deferred<ReservationDtoContainer>
+    @DELETE("resource/{resource_id}")
+    fun deleteResource(@Path("resource_id") resource_id: Int): Deferred<String>
+
+    @DELETE("reservation/{reservation_id}")
+    fun deleteReservation(@Path("reservation_id") reservation_id: Int): Deferred<String>
+
+
+
+
 }
 
 /**

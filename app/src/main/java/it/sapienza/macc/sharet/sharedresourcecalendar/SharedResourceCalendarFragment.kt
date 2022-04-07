@@ -50,6 +50,7 @@ class SharedResourceCalendarFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.calendar_dialog_delete_confirmation)
             .setPositiveButton(R.string.delete) { _, _ ->
+                val retrofit = SharedResourceApi.retrofitService.deleteReservation(it.id.toInt())
                 deleteEvent(it)
             }
             .setNegativeButton(R.string.close, null)
@@ -246,10 +247,9 @@ class SharedResourceCalendarFragment : Fragment() {
                     if(reservationsEntities.size > 0) {
                         val dateTry = convertStringToDate(reservationsEntities[0].date)
 
+                        events.clear()
                         //insert request into events
                         for (res in reservationsEntities) {
-
-                            events.clear()
                             events[dateTry] = events[dateTry].orEmpty()
                                 .plus(Event(res.id.toString(), res.name, dateTry, res.startTime, res.endTime))
                         }
@@ -298,14 +298,14 @@ class SharedResourceCalendarFragment : Fragment() {
                     //starttime OK
                     //endtime OK
 
-                    binding.sharedResourceCalendarViewModel?.insertReservationRoom(
+                    /*binding.sharedResourceCalendarViewModel?.insertReservationRoom(
                         idResource,
                         idOwner,
                         name,
                         date,
                         startTime,
                         endTime
-                    )
+                    )*/
 
                     events[it] = events[it].orEmpty()
                         .plus(Event(UUID.randomUUID().toString(), name, it, startTime, endTime))
