@@ -298,14 +298,14 @@ class SharedResourceCalendarFragment : Fragment() {
                     //starttime OK
                     //endtime OK
 
-                    /*binding.sharedResourceCalendarViewModel?.insertReservationRoom(
+                    binding.sharedResourceCalendarViewModel?.insertReservationRoom(
                         idResource,
                         idOwner,
                         name,
                         date,
                         startTime,
                         endTime
-                    )*/
+                    )
 
                     events[it] = events[it].orEmpty()
                         .plus(Event(UUID.randomUUID().toString(), name, it, startTime, endTime))
