@@ -29,7 +29,12 @@ import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
-import it.sapienza.macc.sharet.database.SharedResourceDatabase
+import it.sapienza.macc.sharet.database.ReservationDatabase
+import it.sapienza.macc.sharet.database.ReservationDatabaseDao
+import it.sapienza.macc.sharet.network.SharedResourceApi
+import it.sapienza.macc.sharet.network.toDbObject
+import it.sapienza.macc.sharet.repository.ReservationRepository
+import kotlinx.coroutines.*
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
@@ -51,6 +56,10 @@ class SharedResourceCalendarFragment : Fragment() {
             .show()
     }
 
+    private lateinit var reservationDatabase: ReservationDatabaseDao
+    private lateinit var reservationRepository: ReservationRepository
+    private val job = Job()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + job)
 
     private val titleRes: Int = R.string.calendar_title
 
@@ -68,6 +77,7 @@ class SharedResourceCalendarFragment : Fragment() {
     private lateinit var preferences: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                                savedInstanceState: Bundle?): View?  {
         binding = DataBindingUtil.inflate(
@@ -81,6 +91,10 @@ class SharedResourceCalendarFragment : Fragment() {
         }
 
         initPrefs()
+
+        reservationDatabase = ReservationDatabase.getInstance(activity?.application!!).ReservationDatabaseDao
+        reservationRepository = ReservationRepository(reservationDatabase)
+
 
         val daysOfWeek = daysOfWeekFromLocale()
         val currentMonth = YearMonth.now()
@@ -97,16 +111,21 @@ class SharedResourceCalendarFragment : Fragment() {
         }
 
         class DayViewContainer(view: View) : ViewContainer(view) {
+            val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
+
             lateinit var day: CalendarDay // Will be set when this container is bound.
+
             val binding = CalendarDayBinding.bind(view)
 
             init {
                 view.setOnClickListener {
                     if (day.owner == DayOwner.THIS_MONTH) {
                         selectDate(day.date)
+                        sharedPref?.edit()?.putString("reservation_date", convertDateToString(day.date))?.apply()
                     }
                 }
             }
+
         }
         binding.exThreeCalendar.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View) = DayViewContainer(view)
@@ -178,7 +197,7 @@ class SharedResourceCalendarFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
+        val dataSource = ReservationDatabase.getInstance(application).ReservationDatabaseDao
 
         val viewModelFactory = SharedResourceCalendarViewModelFactory(dataSource)
 
@@ -199,17 +218,59 @@ class SharedResourceCalendarFragment : Fragment() {
     }
 
     private fun selectDate(date: LocalDate) {
+
+
+
+        val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
+
         if (selectedDate != date) {
             val oldDate = selectedDate
             selectedDate = date
             oldDate?.let { binding.exThreeCalendar.notifyDateChanged(it) }
             binding.exThreeCalendar.notifyDateChanged(date)
-            updateAdapterForDate(date)
+
+            //DB get request here
+
+            //get id resource from shared preferences
+            val idResourceToDB = sharedPref?.getInt("idResource", 0)!!
+            //get id owner from shared preferences
+            //val idOwnerToDB = sharedPref?.getString("user_uid", null)!!
+            //localdate dalla classe
+            val dateToDB = convertDateToString(date)
+
+            coroutineScope.launch(Dispatchers.IO) {
+                val reservations = SharedResourceApi.retrofitService.getReservation(idResourceToDB, dateToDB).await()
+
+                withContext(Dispatchers.Main) {
+                    val reservationsEntities = reservations.toDbObject()
+                    if(reservationsEntities.size > 0) {
+                        val dateTry = convertStringToDate(reservationsEntities[0].date)
+
+                        //insert request into events
+                        for (res in reservationsEntities) {
+
+                            events.clear()
+                            events[dateTry] = events[dateTry].orEmpty()
+                                .plus(Event(res.id.toString(), res.name, dateTry, res.startTime, res.endTime))
+                        }
+
+                        updateAdapterForDate(dateTry)
+                    }
+                    else {
+                        updateAdapterForDate(date)
+                    }
+                }
+
+            }
         }
     }
 
-    private fun saveEvent(text: String, startTime: String, endTime: String): Boolean {
-        if (text.isBlank() or startTime.equals("null") or endTime.equals("null")) {
+    private fun saveEvent(name: String, startTime: String, endTime: String): Boolean {
+
+        val sharedPref = activity?.getSharedPreferences(requireContext().packageName+".auth", Context.MODE_PRIVATE)
+
+
+        if (name.isBlank() or startTime.equals("null") or endTime.equals("null")) {
             Toast.makeText(requireContext(), R.string.fill_fields, Toast.LENGTH_LONG).show()
             return false
         }
@@ -225,8 +286,29 @@ class SharedResourceCalendarFragment : Fragment() {
             }
             else {
                 selectedDate?.let {
+                    //insert DB here
+
+                    //get id resource from shared preferences
+                    val idResource = sharedPref?.getInt("idResource", 0)!!
+                    //get id owner from shared preferences
+                    val idOwner = sharedPref?.getString("user_uid", null)!!
+                    //name OK
+                    //localdate dalla classe
+                    val date = sharedPref?.getString("reservation_date", null)!!
+                    //starttime OK
+                    //endtime OK
+
+                    binding.sharedResourceCalendarViewModel?.insertReservationRoom(
+                        idResource,
+                        idOwner,
+                        name,
+                        date,
+                        startTime,
+                        endTime
+                    )
+
                     events[it] = events[it].orEmpty()
-                        .plus(Event(UUID.randomUUID().toString(), text, it, startTime, endTime))
+                        .plus(Event(UUID.randomUUID().toString(), name, it, startTime, endTime))
                     updateAdapterForDate(it)
                 }
                 return true
@@ -364,6 +446,17 @@ class SharedResourceCalendarFragment : Fragment() {
         dialog.show()
 
 
+    }
+
+    private fun convertDateToString(date: LocalDate): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+        val dateConverted = date.format(formatter)
+        return dateConverted
+    }
+
+    private fun convertStringToDate(dateString: String): LocalDate {
+        val dateConverted = LocalDate.parse(dateString, DateTimeFormatter.BASIC_ISO_DATE)
+        return dateConverted
     }
 
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import it.sapienza.macc.sharet.domain.Reservation
 import it.sapienza.macc.sharet.domain.SharedResource
 import it.sapienza.macc.sharet.domain.User
 import kotlinx.coroutines.Deferred
@@ -36,6 +37,12 @@ interface SharedResourceApiService {
 
     @DELETE("resource/{resource_id}")
     fun deleteResource(@Path("resource_id") resource_id: Int): Deferred<String>
+
+    @POST("reservation/")
+    fun addReservation(@Body reservationData: Reservation): Deferred<ReservationDto>
+
+    @GET("reservation/{resource_id}/{date}")
+    fun getReservation(@Path("resource_id") resource_id: Int, @Path("date") date: String): Deferred<ReservationDtoContainer>
 }
 
 /**

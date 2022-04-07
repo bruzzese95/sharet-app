@@ -1,36 +1,16 @@
 package it.sapienza.macc.sharet.sharedresourcecalendar
 
 import androidx.lifecycle.*
-import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import it.sapienza.macc.sharet.database.ReservationDatabaseDao
+import it.sapienza.macc.sharet.database.ReservationEntity
+import it.sapienza.macc.sharet.network.ReservationDto
+import it.sapienza.macc.sharet.network.SharedResourceApi
+import it.sapienza.macc.sharet.network.toDomainObject
+import kotlinx.coroutines.*
+import kotlin.random.Random
 
 class SharedResourceCalendarViewModel(
-    //private val sharedResourceKey: Long = 0L,
-    dataSource: SharedResourceDatabaseDao): ViewModel() {
-
-    /**
-     * Hold a reference to SleepDatabase via its SleepDatabaseDao.
-     */
-    val database = dataSource
-    /*
-    /** Coroutine setup variables */
-
-    /**
-     * viewModelJob allows us to cancel all coroutines started by this ViewModel.
-     */
-    private val viewModelJob = Job()
-    */
-
-
-    /*
-    private val resource = MediatorLiveData<SharedResource>()
-
-    fun getResource() = resource
-
-*/
-
+    val reservationDatabase: ReservationDatabaseDao): ViewModel() {
 
 
     // The internal MutableLiveData String that stores the most recent response
@@ -60,6 +40,30 @@ class SharedResourceCalendarViewModel(
             }
         }
     }*/
+
+
+    fun insertReservationRoom(idResource: Int, idOwner: String, name: String, date: String, startTime: String, endTime: String) {
+        viewModelScope.launch {
+            val reservation = ReservationEntity()
+            reservation.id = Random.nextInt(1, 2147483646)
+            reservation.idResource = idResource
+            reservation.idOwner = idOwner
+            reservation.name = name
+            reservation.date = date
+            reservation.startTime = startTime
+            reservation.endTime = endTime
+
+            reservationDatabase.insert(reservation)
+
+
+            val reservationDto = reservation.let { ReservationDto(it.id, it.idResource, it.idOwner, it.name, it.date, it.startTime, it.endTime) }
+
+            val reservationDB = reservationDto!!.toDomainObject()
+            val retrofit = SharedResourceApi.retrofitService.addReservation(reservationDB)
+        }
+    }
+
+
 
     override fun onCleared() {
         super.onCleared()

@@ -114,6 +114,7 @@ class SharedResourceFragment : Fragment() {
 
 
         val adapter = SharedResourceAdapter(SharedResourceListener { resourceId ->
+            sharedPref?.edit()?.putInt("idResource", resourceId)?.apply()
             sharedResourceViewModel.onSharedResourceButtonClicked(resourceId)
         }, DeleteResourceListener { resourceId ->
             showDeleteDialog(resourceId)
