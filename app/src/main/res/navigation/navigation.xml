@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/shared_resource_fragment"
         android:name="it.sapienza.macc.sharet.sharedresource.SharedResourceFragment"
-        android:label="fragment_shared_resource"
-        tools:layout="@layout/fragment_shared_resource" >
+        android:label="ShareT"
+        tools:layout="@layout/fragment_shared_resource">
         <action
             android:id="@+id/action_sharedResourceFragment_to_customDialogFragment"
             app:destination="@id/custom_dialog" />

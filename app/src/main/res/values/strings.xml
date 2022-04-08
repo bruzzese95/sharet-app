@@ -45,4 +45,7 @@
     <string name="magnetic_x_coordinate">Magnetic X coordinate:</string>
     <string name="magnetic_y_coordinate">Magnetic Y coordinate:</string>
     <string name="magnetic_z_coordinate">Magnetic Z coordinate:</string>
+    <string name="full_name">Full name:</string>
+    <string name="about_you">About you</string>
+    <string name="e_mail">E-mail:</string>
 </resources>

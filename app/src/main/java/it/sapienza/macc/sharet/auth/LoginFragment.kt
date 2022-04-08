@@ -142,8 +142,9 @@ class LoginFragment : Fragment() {
                         val userToDB = UserEntity()
                         userToDB.idToken = user.uid
                         userToDB.name = user.displayName!!
+                        userToDB.email = user.email!!
 
-                        val userDto = userToDB.let { UserDto(it.idToken, it.name) }
+                        val userDto = userToDB.let { UserDto(it.idToken, it.name, it.email) }
                         val userSend = userDto!!.toDomainObject()
 
                         val retrofit = SharedResourceApi.retrofitService.addUser(userSend)

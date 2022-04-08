@@ -12,7 +12,10 @@ data class UserEntity(
     var idToken: String = "not_initialized",
 
     @ColumnInfo(name = "user_name")
-    var name: String = "not_initialized"
+    var name: String = "not_initialized",
+
+    @ColumnInfo(name = "email")
+    var email: String = "not_initialized"
 )
 
 
@@ -23,7 +26,8 @@ fun List<UserEntity>.toDomainModel(): List<User> {
     return map { dbInstance ->
         User(
             idToken = dbInstance.idToken,
-            name = dbInstance.name
+            name = dbInstance.name,
+            email = dbInstance.email
         )
     }
 

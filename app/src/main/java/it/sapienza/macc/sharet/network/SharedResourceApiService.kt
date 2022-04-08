@@ -17,6 +17,7 @@ import retrofit2.http.*
 
 
 private const val BASE_URL = "https://sharet-2022.herokuapp.com/"
+private const val LOCALHOST = "https://10.0.2.2/"
 
 
 interface SharedResourceApiService {

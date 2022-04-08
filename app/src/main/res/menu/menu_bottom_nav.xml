@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home"
+        android:id="@+id/shared_resource_fragment"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/home" />
     <item
-        android:id="@+id/profile"
+        android:id="@+id/sharedResourceCalendarFragment"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/profile" />

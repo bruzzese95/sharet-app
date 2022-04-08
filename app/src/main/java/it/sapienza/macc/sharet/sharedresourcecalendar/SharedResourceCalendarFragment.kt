@@ -50,7 +50,8 @@ class SharedResourceCalendarFragment : Fragment() {
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.calendar_dialog_delete_confirmation)
             .setPositiveButton(R.string.delete) { _, _ ->
-                val retrofit = SharedResourceApi.retrofitService.deleteReservation(it.id.toInt())
+                val reservationToDelete = it.id.toInt()
+                val retrofit = SharedResourceApi.retrofitService.deleteReservation(reservationToDelete)
                 deleteEvent(it)
             }
             .setNegativeButton(R.string.close, null)
