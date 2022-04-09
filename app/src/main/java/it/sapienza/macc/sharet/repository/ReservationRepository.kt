@@ -3,10 +3,8 @@ package it.sapienza.macc.sharet.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import it.sapienza.macc.sharet.database.ReservationDatabaseDao
-import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.toDomainModel
 import it.sapienza.macc.sharet.domain.Reservation
-import it.sapienza.macc.sharet.domain.SharedResource
 import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.network.toDbObject
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +28,7 @@ class ReservationRepository(private val dao: ReservationDatabaseDao) {
 
     suspend fun refreshReservationList(idOwnerToDB: String, idResourceToDB: Int, dateToDB: String) {
         withContext(Dispatchers.IO) {
-            val reservationDtoList = SharedResourceApi.retrofitService.getReservation(idResourceToDB, dateToDB).await()
+            val reservationDtoList = SharedResourceApi.retrofitService.getReservationAsync(idResourceToDB, dateToDB).await()
             dao.insertAll(*reservationDtoList.toDbObject())
 
         }

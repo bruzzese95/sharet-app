@@ -51,7 +51,7 @@ class SharedResourceCalendarFragment : Fragment() {
             .setMessage(R.string.calendar_dialog_delete_confirmation)
             .setPositiveButton(R.string.delete) { _, _ ->
                 val reservationToDelete = it.id.toInt()
-                val retrofit = SharedResourceApi.retrofitService.deleteReservation(reservationToDelete)
+                val retrofit = SharedResourceApi.retrofitService.deleteReservationAsync(reservationToDelete)
                 deleteEvent(it)
             }
             .setNegativeButton(R.string.close, null)
@@ -241,7 +241,7 @@ class SharedResourceCalendarFragment : Fragment() {
             val dateToDB = convertDateToString(date)
 
             coroutineScope.launch(Dispatchers.IO) {
-                val reservations = SharedResourceApi.retrofitService.getReservation(idResourceToDB, dateToDB).await()
+                val reservations = SharedResourceApi.retrofitService.getReservationAsync(idResourceToDB, dateToDB).await()
 
                 withContext(Dispatchers.Main) {
                     val reservationsEntities = reservations.toDbObject()

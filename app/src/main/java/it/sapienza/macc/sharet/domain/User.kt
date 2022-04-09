@@ -7,6 +7,7 @@ package it.sapienza.macc.sharet.domain
  */
 class User(
     val idToken: String,
+    val idUser: Int,
     val name: String,
     val email: String
 )

@@ -13,6 +13,7 @@ import it.sapienza.macc.sharet.domain.User
 @JsonClass(generateAdapter = true)
 data class UserDto (
     val idToken: String,
+    val idUser: Int,
     val name: String,
     val email: String
 )
@@ -30,6 +31,7 @@ data class UserDtoContainer (
 fun UserDto.toDomainObject(): User {
     return User(
         idToken = idToken,
+        idUser = idUser,
         name = name,
         email = email
     )
@@ -43,6 +45,7 @@ fun UserDtoContainer.toDomainObject(): List<User> {
     return UserDtoList.map { dto ->
         User(
             idToken = dto.idToken,
+            idUser = dto.idUser,
             name = dto.name,
             email = dto.email
         )
@@ -56,6 +59,7 @@ fun UserDtoContainer.toDbObject(): Array<UserEntity> {
     return UserDtoList.map { dto ->
         UserEntity(
             idToken = dto.idToken,
+            idUser = dto.idUser,
             name = dto.name,
             email = dto.email
         )

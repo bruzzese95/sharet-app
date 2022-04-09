@@ -12,10 +12,7 @@ data class SharedResourceEntity(
     var id: Int = 0,
 
     @ColumnInfo(name = "resource_name")
-    var name: String = "not_initialized",
-
-    @ColumnInfo(name = "owner_id")
-    var owner_id: String = "not_initialized"
+    var name: String = "not_initialized"
 )
 
 
@@ -26,8 +23,7 @@ fun List<SharedResourceEntity>.toDomainModel(): List<SharedResource> {
     return map { dbInstance ->
         SharedResource(
             id = dbInstance.id,
-            name = dbInstance.name,
-            owner_id = dbInstance.owner_id
+            name = dbInstance.name
         )
     }
 

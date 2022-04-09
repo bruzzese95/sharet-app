@@ -45,7 +45,9 @@ class CustomDialogUserFragment : DialogFragment() {
 
 
         binding.submitAddUserButton.setOnClickListener { view: View ->
-            customDialogViewModel.onAddedUsername(binding.nameResource.text.toString())
+            val idResource = CustomDialogUserFragmentArgs.fromBundle(requireArguments()).idResource
+            val idUser = binding.idUser.text.toString()
+            customDialogViewModel.onAddedUsername(idUser.toInt(), idResource)
 
             this.findNavController().navigate(CustomDialogUserFragmentDirections.actionCustomDialogUserFragmentToSharedResourceFragment())
         }

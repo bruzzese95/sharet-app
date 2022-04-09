@@ -7,17 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
+import it.sapienza.macc.sharet.database.UserAndResourceDatabaseDao
+import it.sapienza.macc.sharet.database.UserAndResourceEntity
 import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.network.SharedResourceDto
+import it.sapienza.macc.sharet.network.UserAndResourceDto
 import it.sapienza.macc.sharet.network.toDomainObject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import kotlin.random.Random
 
 class CustomDialogResourceViewModel(
     val sharedPreferences: SharedPreferences?,
-    val resourceDatabase: SharedResourceDatabaseDao) : ViewModel() {
+    val resourceDatabase: SharedResourceDatabaseDao,
+    val userAndResourceDatabase: UserAndResourceDatabaseDao ) : ViewModel() {
 
     private val _navigateToSharedResource = MutableLiveData<Boolean?>()
     val navigateToSharedResource: LiveData<Boolean?>
@@ -26,6 +28,7 @@ class CustomDialogResourceViewModel(
     fun doneNavigating() {
         _navigateToSharedResource.value = null
     }
+
 
     private suspend fun update(resource: SharedResourceEntity) {
         withContext(Dispatchers.IO) {
@@ -39,25 +42,31 @@ class CustomDialogResourceViewModel(
     // In this case, we are specifying to return from launch(),
     // not the lambda.
     fun onSetSharedResourceName(name: String) {
-        viewModelScope.launch {
+        GlobalScope.launch {
             val newResource = SharedResourceEntity()
             newResource.id = Random.nextInt(1, 2147483646)
             newResource.name = name
-            newResource.owner_id = sharedPreferences?.getString("user_uid", null)!!
-            resourceDatabase.insert(newResource)
 
-            /*
-            val values = resourceDatabase.getAll()
-
-            val resourceRoom = resourceDatabase.getResource()
-
-            Log.i("ResourceRoom id: ", resourceRoom?.id.toString())*/
-
-            val resourceDto = newResource.let { SharedResourceDto(it.id, it.name, it.owner_id) }
+            val resourceDto = newResource.let { SharedResourceDto(it.id, it.name) }
 
             val resource = resourceDto!!.toDomainObject()
-            val retrofit = SharedResourceApi.retrofitService.addResource(resource)
-            _navigateToSharedResource.value = true
+            val retrofit = SharedResourceApi.retrofitService.addResourceAsync(resource).await()
+
+
+            val newUserAndResource = UserAndResourceEntity()
+            newUserAndResource.id = Random.nextInt(1, 2147483646)
+            newUserAndResource.idUser = sharedPreferences?.getString("user_uid", null)!!
+            newUserAndResource.idResource = newResource.id
+
+            val userAndResourceDto = newUserAndResource.let { UserAndResourceDto(it.id, it.idUser, it.idResource) }
+            val userAndResource = userAndResourceDto!!.toDomainObject()
+
+
+            val retrofitUserAndResource = SharedResourceApi.retrofitService.addUserAndResourceAsync(userAndResource).await()
+
+
+            _navigateToSharedResource.postValue(true)
         }
     }
+
 }

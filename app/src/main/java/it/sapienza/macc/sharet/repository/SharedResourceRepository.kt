@@ -2,7 +2,6 @@ package it.sapienza.macc.sharet.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import it.sapienza.macc.sharet.database.SharedResourceDatabase
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.toDomainModel
 import it.sapienza.macc.sharet.domain.SharedResource
@@ -29,7 +28,7 @@ class SharedResourceRepository(private val dao: SharedResourceDatabaseDao) {
 
     suspend fun refreshSharedResourceList(user_id: String) {
         withContext(Dispatchers.IO) {
-            val sharedResourceDtoList = SharedResourceApi.retrofitService.getSharedResources(user_id).await()
+            val sharedResourceDtoList = SharedResourceApi.retrofitService.getSharedResourcesAsync(user_id).await()
             dao.insertAll(*sharedResourceDtoList.toDbObject())
 
         }

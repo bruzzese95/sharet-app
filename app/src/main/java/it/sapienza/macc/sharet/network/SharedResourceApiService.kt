@@ -7,6 +7,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import it.sapienza.macc.sharet.domain.Reservation
 import it.sapienza.macc.sharet.domain.SharedResource
 import it.sapienza.macc.sharet.domain.User
+import it.sapienza.macc.sharet.domain.UserAndResource
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -17,7 +18,7 @@ import retrofit2.http.*
 
 
 private const val BASE_URL = "https://sharet-2022.herokuapp.com/"
-private const val LOCALHOST = "https://10.0.2.2/"
+private const val LOCALHOST = "http://10.0.2.2:8000/"
 
 
 interface SharedResourceApiService {
@@ -25,26 +26,45 @@ interface SharedResourceApiService {
     @GET("resource/all")
     fun getSharedResourcesAsync(): Deferred<SharedResourceDtoContainer>
 
+
+    @GET("iduser/{idUser}")
+    fun getUserWithIdUserAsync(@Path("idUser") idUser: Int): Deferred<UserDto>
+
+    @GET("user/name/{name}")
+    fun getUserWithNameAsync(@Path("name") name: String): Deferred<UserDto>
+
+    @GET("user/email/{email}")
+    fun getUserWithEmailAsync(@Path("email") email: String): Deferred<UserDto>
+
     @GET("resource/{user_id}")
-    fun getSharedResources(@Path("user_id") user_id: String): Deferred<SharedResourceDtoContainer>
+    fun getSharedResourcesAsync(@Path("user_id") user_id: String): Deferred<SharedResourceDtoContainer>
+
+    @GET("resource/{user_id}")
+    fun getUserAndResourcesAsync(@Path("user_id") user_id: String): Deferred<UserAndResourceDtoContainer>
+
+    @GET("resource/get/{resource_id}")
+    fun getResourceAsync(@Path("resource_id") resource_id: Int): Deferred<SharedResourceDto>
 
     @GET("reservation/{resource_id}/{date}")
-    fun getReservation(@Path("resource_id") resource_id: Int, @Path("date") date: String): Deferred<ReservationDtoContainer>
+    fun getReservationAsync(@Path("resource_id") resource_id: Int, @Path("date") date: String): Deferred<ReservationDtoContainer>
 
     @POST("resource/")
-    fun addResource(@Body resourceData: SharedResource): Deferred<SharedResourceDto>
+    fun addResourceAsync(@Body resourceData: SharedResource): Deferred<SharedResourceDto>
 
     @POST("user/")
-    fun addUser(@Body userData: User): Deferred<User>
+    fun addUserAsync(@Body userData: User): Deferred<User>
 
     @POST("reservation/")
-    fun addReservation(@Body reservationData: Reservation): Deferred<ReservationDto>
+    fun addReservationAsync(@Body reservationData: Reservation): Deferred<ReservationDto>
 
     @DELETE("resource/{resource_id}")
-    fun deleteResource(@Path("resource_id") resource_id: Int): Deferred<String>
+    fun deleteResourceAsync(@Path("resource_id") resource_id: Int): Deferred<String>
 
     @DELETE("reservation/{reservation_id}")
-    fun deleteReservation(@Path("reservation_id") reservation_id: Int): Deferred<String>
+    fun deleteReservationAsync(@Path("reservation_id") reservation_id: Int): Deferred<String>
+
+    @POST("userandresource/")
+    fun addUserAndResourceAsync(@Body userAndResource: UserAndResource): Deferred<UserAndResourceDto>
 
 
 

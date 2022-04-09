@@ -75,6 +75,6 @@ class DeleteResourceListener(val clickListener: (id: Int) -> Unit) {
     fun onClick(resource: SharedResource) = clickListener(resource.id)
 }
 
-class AddUserListener(val clickListener: () -> Unit) {
-    fun onClick() = clickListener()
+class AddUserListener(val clickListener: (id: Int) -> Unit) {
+    fun onClick(resource: SharedResource) = clickListener(resource.id)
 }

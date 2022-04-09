@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import androidx.lifecycle.*
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.SharedResourceEntity
+import it.sapienza.macc.sharet.database.UserAndResourceDatabaseDao
 import it.sapienza.macc.sharet.repository.SharedResourceRepository
+import it.sapienza.macc.sharet.repository.UserAndResourceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -16,35 +18,43 @@ import kotlinx.coroutines.withContext
  */
 class SharedResourceViewModel(
     val sharedPreferences: SharedPreferences?,
-    val resourceDatabase: SharedResourceDatabaseDao, application: Application) : AndroidViewModel(application) {
+    val resourceDatabase: SharedResourceDatabaseDao,
+    val userAndResourceDatabase: UserAndResourceDatabaseDao,
+    application: Application) : AndroidViewModel(application) {
 
     private val sharedResourceRepository = SharedResourceRepository(resourceDatabase)
+
+    private val userAndResourceRepository = UserAndResourceRepository(userAndResourceDatabase, resourceDatabase)
 
 
 
     init {
         viewModelScope.launch {
             resourceDatabase.clear()
-            delay(200)
+            delay(400)
             val user_uid = sharedPreferences?.getString("user_uid", null)
-            if(user_uid != null)    sharedResourceRepository.refreshSharedResourceList(user_uid) }
+            if(user_uid != null)    {
+                userAndResourceRepository.refreshUserAndResourceList(user_uid)
+            }
+        }
     }
-    val sharedResourcesList = sharedResourceRepository.sharedResourceList
+
+    val sharedResourcesList = userAndResourceRepository.sharedResourceList
 
 
 
 
 
 
-    private val _navigateToCustomDialogAddUser = MutableLiveData<Boolean>()
-    val navigateToCustomDialogAddUser: LiveData<Boolean>
+    private val _navigateToCustomDialogAddUser = MutableLiveData<Int>()
+    val navigateToCustomDialogAddUser: LiveData<Int>
         get() = _navigateToCustomDialogAddUser
 
 
-    fun onAddUserButtonClicked() {
+    fun onAddUserButtonClicked(id: Int) {
         viewModelScope.launch {
 
-            _navigateToCustomDialogAddUser.value = true
+            _navigateToCustomDialogAddUser.value = id
         }
     }
 

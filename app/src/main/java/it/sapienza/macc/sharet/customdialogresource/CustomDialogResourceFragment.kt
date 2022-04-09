@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import it.sapienza.macc.sharet.R
 import it.sapienza.macc.sharet.database.SharedResourceDatabase
+import it.sapienza.macc.sharet.database.UserAndResourceDatabase
 import it.sapienza.macc.sharet.databinding.FragmentCustomDialogResourceBinding
 
 class CustomDialogResourceFragment: DialogFragment() {
@@ -29,7 +30,10 @@ class CustomDialogResourceFragment: DialogFragment() {
 
         //Create an instance of the ViewModelFactory
         val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
-        val viewModelFactory = CustomDialogResourceViewModelFactory(sharedPref, dataSource)
+
+        val dataUserAndResource = UserAndResourceDatabase.getInstance(application).UserAndResourceDatabaseDao
+        val viewModelFactory = CustomDialogResourceViewModelFactory(sharedPref, dataSource, dataUserAndResource)
+
 
         //Get a reference to the ViewModel associated with this fragment
         val customDialogViewModel =
@@ -49,8 +53,9 @@ class CustomDialogResourceFragment: DialogFragment() {
 
 
         binding.submitCreateResourceButton.setOnClickListener { view: View ->
-            customDialogViewModel.onSetSharedResourceName(binding.nameResource.text.toString())
-
+            val nameResource = binding.nameResource.text.toString()
+            customDialogViewModel.onSetSharedResourceName(nameResource)
+            //customDialogViewModel.createRelationship(nameResource)
             //add interaction with DB
 
 

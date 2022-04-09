@@ -7,7 +7,5 @@ package it.sapienza.macc.sharet.domain
  */
 class SharedResource (
     val id: Int,
-    val name: String,
-    val owner_id: String
-    /*val group: List<UserProperty>*/
+    val name: String
 )

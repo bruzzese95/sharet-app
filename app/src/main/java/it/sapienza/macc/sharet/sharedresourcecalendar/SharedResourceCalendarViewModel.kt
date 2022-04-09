@@ -59,7 +59,7 @@ class SharedResourceCalendarViewModel(
             val reservationDto = reservation.let { ReservationDto(it.id, it.idResource, it.idOwner, it.name, it.date, it.startTime, it.endTime) }
 
             val reservationDB = reservationDto!!.toDomainObject()
-            val retrofit = SharedResourceApi.retrofitService.addReservation(reservationDB)
+            val retrofit = SharedResourceApi.retrofitService.addReservationAsync(reservationDB)
         }
     }
 

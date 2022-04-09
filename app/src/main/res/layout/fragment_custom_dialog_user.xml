@@ -25,11 +25,11 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/name_resource"
+            android:id="@+id/idUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/email_text"
+            android:hint="@string/id_user"
             android:importantForAutofill="no"
             android:inputType="textPersonName"
             tools:ignore="TouchTargetSizeCheck" />

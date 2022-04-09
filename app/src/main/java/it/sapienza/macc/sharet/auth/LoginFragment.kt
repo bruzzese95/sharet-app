@@ -38,6 +38,8 @@ import it.sapienza.macc.sharet.databinding.FragmentLoginBinding
 import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.network.UserDto
 import it.sapienza.macc.sharet.network.toDomainObject
+import kotlinx.coroutines.delay
+import kotlin.random.Random
 
 class LoginFragment : Fragment() {
 
@@ -141,13 +143,15 @@ class LoginFragment : Fragment() {
 
                         val userToDB = UserEntity()
                         userToDB.idToken = user.uid
+                        userToDB.idUser = Random.nextInt(1, 10000)
                         userToDB.name = user.displayName!!
                         userToDB.email = user.email!!
 
-                        val userDto = userToDB.let { UserDto(it.idToken, it.name, it.email) }
+                        val userDto = userToDB.let { UserDto(it.idToken, it.idUser, it.name, it.email) }
                         val userSend = userDto!!.toDomainObject()
 
-                        val retrofit = SharedResourceApi.retrofitService.addUser(userSend)
+                        val retrofit = SharedResourceApi.retrofitService.addUserAsync(userSend)
+
                     }
                 } else {
                     Log.e(TAG, task.exception.toString());

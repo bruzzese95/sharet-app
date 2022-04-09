@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [UserEntity::class], version = 8, exportSchema = false)
-abstract class UserDatabase: RoomDatabase() {
+@Database(entities = [UserAndResourceEntity::class], version = 1, exportSchema = false)
+abstract class UserAndResourceDatabase: RoomDatabase() {
 
-    abstract val UserDatabaseDao: UserDatabaseDao
+    abstract val UserAndResourceDatabaseDao: UserAndResourceDatabaseDao
 
     companion object {
         /**
@@ -21,7 +21,7 @@ abstract class UserDatabase: RoomDatabase() {
          *  thread to shared data are visible to other threads.
          */
         @Volatile
-        private var INSTANCE: UserDatabase? = null
+        private var INSTANCE: UserAndResourceDatabase? = null
 
 
         /**
@@ -41,7 +41,7 @@ abstract class UserDatabase: RoomDatabase() {
          *
          * @param context The application context Singleton, used to get access to the filesystem.
          */
-        fun getInstance(context: Context): UserDatabase {
+        fun getInstance(context: Context): UserAndResourceDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize
             // it once by using synchronized. Only one thread may enter a synchronized block at a
             // time.
@@ -53,8 +53,8 @@ abstract class UserDatabase: RoomDatabase() {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
-                        UserDatabase::class.java,
-                        "user_database"
+                        UserAndResourceDatabase::class.java,
+                        "user_and_resource_database"
                     )
                         // Wipes and rebuilds instead of migrating if no Migration object.
                         // Migration is not part of this lesson. You can learn more about

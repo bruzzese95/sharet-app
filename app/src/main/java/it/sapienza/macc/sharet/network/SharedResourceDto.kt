@@ -13,8 +13,7 @@ import it.sapienza.macc.sharet.domain.SharedResource
 @JsonClass(generateAdapter = true)
 data class SharedResourceDto (
     val id: Int,
-    val name: String,
-    val owner_id: String
+    val name: String
 )
 
 @JsonClass(generateAdapter = true)
@@ -29,8 +28,7 @@ fun SharedResourceDtoContainer.toDomainObject(): List<SharedResource> {
     return sharedResourceDtoList.map { dto ->
         SharedResource(
             id = dto.id,
-            name = dto.name,
-            owner_id = dto.owner_id
+            name = dto.name
         )
     }
 }
@@ -41,8 +39,7 @@ fun SharedResourceDtoContainer.toDomainObject(): List<SharedResource> {
 fun SharedResourceDto.toDomainObject(): SharedResource {
     return SharedResource(
             id = id,
-            name = name,
-            owner_id = owner_id
+            name = name
         )
 }
 
@@ -56,8 +53,7 @@ fun SharedResourceDtoContainer.toDbObject(): Array<SharedResourceEntity> {
     return sharedResourceDtoList.map { dto ->
         SharedResourceEntity(
             id = dto.id,
-            name = dto.name,
-            owner_id = dto.owner_id
+            name = dto.name
         )
     }.toTypedArray()
 }

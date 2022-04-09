@@ -5,6 +5,8 @@ import androidx.lifecycle.Transformations
 import it.sapienza.macc.sharet.database.UserDatabaseDao
 import it.sapienza.macc.sharet.database.toDomainModel
 import it.sapienza.macc.sharet.domain.User
+import it.sapienza.macc.sharet.network.SharedResourceApi
+import it.sapienza.macc.sharet.network.UserDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -13,13 +15,10 @@ class UserRepository(private val dao: UserDatabaseDao) {
         userEntityList.toDomainModel()
     }
 
-    /*
-    * To refresh the offline cache.
-    */
-    suspend fun refreshUserList() {
+
+    suspend fun getUserWithIdUser(idUser: Int)  {
         withContext(Dispatchers.IO) {
-            /*val sharedResourceDtoList = SharedResourceApi.retrofitService.getSharedResourcesAsync().await()*/
-//            dao.insertAll(*sharedResourceDtoList.toDbObject()) //Note the asterisk * is the spread operator. It allows you to pass in an array to a function that expects varargs.
+            val userDto = SharedResourceApi.retrofitService.getUserWithIdUserAsync(idUser).await()
         }
     }
 }

@@ -7,20 +7,17 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.firebase.ui.auth.AuthUI
-import com.google.firebase.auth.FirebaseAuth
 import it.sapienza.macc.sharet.R
 import it.sapienza.macc.sharet.auth.LoginViewModel
 import it.sapienza.macc.sharet.database.SharedResourceDatabase
+import it.sapienza.macc.sharet.database.UserAndResourceDatabase
 import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
 import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.sensor.MagSensorActivity
@@ -48,9 +45,10 @@ class SharedResourceFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
+        val dataResource = SharedResourceDatabase.getInstance(application).sharedResourceDatabaseDao
+        val dataUserAndResource = UserAndResourceDatabase.getInstance(application).UserAndResourceDatabaseDao
 
-        val viewModelFactory = SharedResourceViewModelFactory(sharedPref, dataSource, application)
+        val viewModelFactory = SharedResourceViewModelFactory(sharedPref, dataResource, dataUserAndResource, application)
 
         val sharedResourceViewModel =
             ViewModelProvider(
@@ -103,7 +101,7 @@ class SharedResourceFragment : Fragment() {
         ) { resource ->
             resource?.let {
                 this.findNavController().navigate(
-                    SharedResourceFragmentDirections.actionSharedResourceFragmentToCustomDialogUserFragment()
+                    SharedResourceFragmentDirections.actionSharedResourceFragmentToCustomDialogUserFragment(resource)
                 )
                 sharedResourceViewModel.onCustomDialogAddUserNavigated()
             }
@@ -118,8 +116,8 @@ class SharedResourceFragment : Fragment() {
             sharedResourceViewModel.onSharedResourceButtonClicked(resourceId)
         }, DeleteResourceListener { resourceId ->
             showDeleteDialog(resourceId)
-        }, AddUserListener {
-            sharedResourceViewModel.onAddUserButtonClicked()
+        }, AddUserListener { resourceId ->
+            sharedResourceViewModel.onAddUserButtonClicked(resourceId)
         })
 
 
@@ -161,7 +159,7 @@ class SharedResourceFragment : Fragment() {
 
             binding.sharedResourceViewModel?.onClearWithId(resourceId)
 
-            val retrofit = SharedResourceApi.retrofitService.deleteResource(resourceId)
+            val retrofit = SharedResourceApi.retrofitService.deleteResourceAsync(resourceId)
 
             dialog.dismiss()
         }
