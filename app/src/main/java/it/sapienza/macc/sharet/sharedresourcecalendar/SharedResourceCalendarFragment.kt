@@ -251,8 +251,10 @@ class SharedResourceCalendarFragment : Fragment() {
                         events.clear()
                         //insert request into events
                         for (res in reservationsEntities) {
+                            val userDto = SharedResourceApi.retrofitService.getUserWithIdTokenAsync(res.idOwner).await()
+
                             events[dateTry] = events[dateTry].orEmpty()
-                                .plus(Event(res.id.toString(), res.name, dateTry, res.startTime, res.endTime))
+                                .plus(Event(res.id.toString(), res.name, dateTry, res.startTime, res.endTime, userDto.name))
                         }
 
                         updateAdapterForDate(dateTry)
@@ -289,28 +291,33 @@ class SharedResourceCalendarFragment : Fragment() {
                 selectedDate?.let {
                     //insert DB here
 
-                    //get id resource from shared preferences
-                    val idResource = sharedPref?.getInt("idResource", 0)!!
-                    //get id owner from shared preferences
-                    val idOwner = sharedPref?.getString("user_uid", null)!!
-                    //name OK
-                    //localdate dalla classe
-                    val date = sharedPref?.getString("reservation_date", null)!!
-                    //starttime OK
-                    //endtime OK
+                    coroutineScope.launch {
+                        //get id resource from shared preferences
+                        val idResource = sharedPref?.getInt("idResource", 0)!!
+                        //get id owner from shared preferences
+                        val idOwner = sharedPref?.getString("user_uid", null)!!
+                        //name OK
+                        //localdate dalla classe
+                        val date = sharedPref?.getString("reservation_date", null)!!
+                        //starttime OK
+                        //endtime OK
 
-                    binding.sharedResourceCalendarViewModel?.insertReservationRoom(
-                        idResource,
-                        idOwner,
-                        name,
-                        date,
-                        startTime,
-                        endTime
-                    )
+                        binding.sharedResourceCalendarViewModel?.insertReservationRoom(
+                            idResource,
+                            idOwner,
+                            name,
+                            date,
+                            startTime,
+                            endTime
+                        )
 
-                    events[it] = events[it].orEmpty()
-                        .plus(Event(UUID.randomUUID().toString(), name, it, startTime, endTime))
-                    updateAdapterForDate(it)
+                        val userDto = SharedResourceApi.retrofitService.getUserWithIdTokenAsync(idOwner).await()
+
+                        events[it] = events[it].orEmpty()
+                            .plus(Event(UUID.randomUUID().toString(), name, it, startTime, endTime, userDto.name))
+                        updateAdapterForDate(it)
+                    }
+
                 }
                 return true
             }

@@ -14,14 +14,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                tools:text="Play football with friends" />
+                tools:text="Play football" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="260sp">
+            android:layout_marginLeft="130sp">
+
+
+            <TextView
+                android:id="@+id/name_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginRight="30dp"
+                tools:text="Sara Bruzzese" />
 
             <TextView
                 android:id="@+id/startTime"

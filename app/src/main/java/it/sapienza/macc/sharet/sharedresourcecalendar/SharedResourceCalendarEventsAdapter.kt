@@ -38,8 +38,7 @@ class SharedResourceCalendarEventsAdapter(val onClick: (Event) -> Unit) :
 
         fun bind(event: Event) {
             binding.itemEventText.text = event.text
-            /*binding.startTime.text = event.startTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
-            binding.endTime.text = event.endTime.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))*/
+            binding.nameOwner.text = event.nameOwner
             binding.startTime.text = event.startTime
             binding.endTime.text = event.endTime
         }
