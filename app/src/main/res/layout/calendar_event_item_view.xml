@@ -11,47 +11,52 @@
 
             <TextView
                 android:id="@+id/itemEventText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
                 tools:text="Play football" />
+
+        <TextView
+            android:id="@+id/name_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="115dp"
+            android:textStyle="italic"
+            tools:text="Sara Bruzzese" />
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="130sp">
-
-
-            <TextView
-                android:id="@+id/name_owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:layout_marginRight="30dp"
-                tools:text="Sara Bruzzese" />
+            android:layout_marginLeft="250sp">
 
             <TextView
                 android:id="@+id/startTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                tools:text="12:00" />
+                tools:text="12:00"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/slash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text=" - " />
+                android:text=" - "
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/endTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                tools:text="13:00" />
+                tools:text="13:00"
+                android:textStyle="bold"/>
 
 
         </LinearLayout>
