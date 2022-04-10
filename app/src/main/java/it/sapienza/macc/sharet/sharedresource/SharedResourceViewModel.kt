@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import it.sapienza.macc.sharet.database.SharedResourceDatabaseDao
 import it.sapienza.macc.sharet.database.SharedResourceEntity
 import it.sapienza.macc.sharet.database.UserAndResourceDatabaseDao
+import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.repository.SharedResourceRepository
 import it.sapienza.macc.sharet.repository.UserAndResourceRepository
 import kotlinx.coroutines.Dispatchers
@@ -26,6 +27,7 @@ class SharedResourceViewModel(
 
     private val userAndResourceRepository = UserAndResourceRepository(userAndResourceDatabase, resourceDatabase)
 
+    var idUser: Int = 0
 
 
     init {
@@ -36,19 +38,35 @@ class SharedResourceViewModel(
             if(user_uid != null)    {
                 userAndResourceRepository.refreshUserAndResourceList(user_uid)
             }
+
+            val userDto = SharedResourceApi.retrofitService.getUserWithIdTokenAsync(user_uid!!).await()
+            idUser = userDto.idUser
+            onStarting()
         }
     }
+
 
     val sharedResourcesList = userAndResourceRepository.sharedResourceList
 
 
 
+    private val _getIdToken = MutableLiveData<Boolean>()
+    val getIdToken: LiveData<Boolean>
+        get() = _getIdToken
 
 
 
     private val _navigateToCustomDialogAddUser = MutableLiveData<Int>()
     val navigateToCustomDialogAddUser: LiveData<Int>
         get() = _navigateToCustomDialogAddUser
+
+    fun onStarting() {
+        _getIdToken.value = true
+    }
+
+    fun onNavigated() {
+        _getIdToken.value = null
+    }
 
 
     fun onAddUserButtonClicked(id: Int) {

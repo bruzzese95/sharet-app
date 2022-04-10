@@ -21,6 +21,8 @@ import it.sapienza.macc.sharet.database.UserAndResourceDatabase
 import it.sapienza.macc.sharet.databinding.FragmentSharedResourceBinding
 import it.sapienza.macc.sharet.network.SharedResourceApi
 import it.sapienza.macc.sharet.sensor.MagSensorActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -134,6 +136,15 @@ class SharedResourceFragment : Fragment() {
         binding.sensorButton.setOnClickListener {
             val intent = Intent(requireContext(), MagSensorActivity::class.java)
             startActivity(intent)
+        }
+
+
+        sharedResourceViewModel.getIdToken.observe(viewLifecycleOwner) {
+                value ->
+            value?.let {
+                binding.idUser.text = binding.sharedResourceViewModel?.idUser.toString()
+                sharedResourceViewModel.onNavigated()
+            }
         }
 
 

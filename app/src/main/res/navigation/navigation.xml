@@ -15,7 +15,11 @@
             app:destination="@id/custom_dialog" />
         <action
             android:id="@+id/action_shared_resource_fragment_to_sharedResourceCalendarFragment"
-            app:destination="@id/sharedResourceCalendarFragment" />
+            app:destination="@id/sharedResourceCalendarFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_shared_resource_fragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -54,6 +58,10 @@
         <action
             android:id="@+id/action_loginFragment_to_shared_resource_fragment"
             app:destination="@id/shared_resource_fragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>

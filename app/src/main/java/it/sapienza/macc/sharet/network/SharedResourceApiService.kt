@@ -26,6 +26,8 @@ interface SharedResourceApiService {
     @GET("resource/all")
     fun getSharedResourcesAsync(): Deferred<SharedResourceDtoContainer>
 
+    @GET("user/{idToken}")
+    fun getUserWithIdTokenAsync(@Path("idToken") idToken: String): Deferred<UserDto>
 
     @GET("iduser/{idUser}")
     fun getUserWithIdUserAsync(@Path("idUser") idUser: Int): Deferred<UserDto>
