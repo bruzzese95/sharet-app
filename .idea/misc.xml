@@ -38,13 +38,16 @@
         <entry key="..\:/ShareT/sharet-app-nuova/app/src/main/res/layout/list_item_shared_resource.xml" value="0.1" />
         <entry key="..\:/ShareT/sharet-app-nuova/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.31574074074074077" />
         <entry key="..\:/ShareT/sharet-app-nuova/app/src/main/res/menu/overflow_menu.xml" value="0.35833333333333334" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.5475" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/drawable/ic_baseline_person_add_alt_1_24.xml" value="0.5475" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/drawable/ic_baseline_whatshot_24.xml" value="0.5475" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/activity_main.xml" value="0.2689969604863222" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/custom_dialog_delete_resource.xml" value="0.5541666666666667" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/fragment_login.xml" value="0.32382246376811596" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/fragment_profile.xml" value="0.3802083333333333" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/fragment_shared_resource.xml" value="0.33" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/fragment_shared_resource_calendar.xml" value="0.2695035460992908" />
-        <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/list_item_shared_resource.xml" value="0.1" />
+        <entry key="..\:/ShareT/sharet-app/app/src/main/res/layout/list_item_shared_resource.xml" value="0.33" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.31574074074074077" />
         <entry key="..\:/ShareT/sharet-app/app/src/main/res/menu/overflow_menu.xml" value="0.31574074074074077" />
         <entry key="app/src/main/res/layout/custom_dialog_add_resource.xml" value="0.1" />

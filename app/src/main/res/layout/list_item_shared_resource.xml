@@ -24,10 +24,10 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         tools:context=".sharedresource.SharedResourceFragment">
 
         <ImageView
@@ -37,9 +37,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:sharedResourceImage="@{sharedResource}"
             android:onClick="@{() -> clickListenerResource.onClick(sharedResource)}"
             tools:srcCompat="@drawable/ic_baseline_whatshot_24" />
@@ -49,47 +46,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/resource_image"
-            app:layout_constraintTop_toTopOf="@+id/resource_image"
+            android:textSize="17sp"
+            android:textColor="@color/black"
             app:sharedResourceName="@{sharedResource}"
             android:onClick="@{() -> clickListenerResource.onClick(sharedResource)}"
             tools:text="Your shared resource" />
 
 
-        <ImageView
-            android:id="@+id/add_people_image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:addUserImage="@{sharedResource}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/delete_image"
-            app:layout_constraintHorizontal_bias="0.919"
-            app:layout_constraintStart_toEndOf="@+id/resource_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.56"
-            tools:srcCompat="@drawable/ic_baseline_person_add_alt_1_24"
-            android:onClick="@{() -> clickListenerAddUser.onClick(sharedResource)}"/>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/delete_image"
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="104dp"
-            app:deleteResourceImage="@{sharedResource}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.846"
-            app:layout_constraintStart_toEndOf="@+id/resource_name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.609"
-            tools:srcCompat="@drawable/ic_baseline_delete_24"
-            android:onClick="@{() -> clickListenerDelete.onClick(sharedResource)}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/add_people_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="10dp"
+                app:addUserImage="@{sharedResource}"
+                tools:srcCompat="@drawable/ic_baseline_person_add_alt_1_24"
+                android:onClick="@{() -> clickListenerAddUser.onClick(sharedResource)}"/>
+
+            <ImageView
+                android:id="@+id/delete_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:deleteResourceImage="@{sharedResource}"
+
+                tools:srcCompat="@drawable/ic_baseline_delete_24"
+                android:onClick="@{() -> clickListenerDelete.onClick(sharedResource)}" />
+
+        </LinearLayout>
+    </LinearLayout>
 </layout>
