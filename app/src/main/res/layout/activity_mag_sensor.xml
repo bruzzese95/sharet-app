@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
         android:fontFamily="@font/roboto"
         android:text="@string/magnetic_text"
         android:textAlignment="center"
@@ -23,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <TextView
@@ -31,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:textStyle="bold"
             android:layout_marginLeft="30dp"
             android:text="@string/magnetic_x_coordinate"
             android:textSize="18sp" />
@@ -58,6 +61,7 @@
             android:id="@+id/magY_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:fontFamily="@font/roboto"
             android:layout_marginLeft="30dp"
             android:text="@string/magnetic_y_coordinate"
@@ -87,6 +91,7 @@
             android:id="@+id/magZ_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:fontFamily="@font/roboto"
             android:layout_marginLeft="30dp"
             android:text="@string/magnetic_z_coordinate"
@@ -102,5 +107,19 @@
             android:textSize="20sp"/>
 
     </LinearLayout>
+
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <it.sapienza.macc.sharet.graphics.WavesView
+        style="@style/Widget.WaveView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layerType="software" />
+
+</FrameLayout>
+
 
 </LinearLayout>

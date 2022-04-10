@@ -41,7 +41,7 @@
     <string name="email_text">Email</string>
     <string name="welcome_to_sharet_app">Welcome to ShareT app!</string>
     <string name="read_mobile_sensor">Read mobile sensor</string>
-    <string name="magnetic_text">Here you can read the magnetic sensor values of your phone!</string>
+    <string name="magnetic_text">Magnetic sensors and Canvas </string>
     <string name="magnetic_x_coordinate">Magnetic X coordinate:</string>
     <string name="magnetic_y_coordinate">Magnetic Y coordinate:</string>
     <string name="magnetic_z_coordinate">Magnetic Z coordinate:</string>
