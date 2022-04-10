@@ -1,97 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     tools:context=".sensor.MagSensorActivity">
 
-    <TextView
-        android:id="@+id/magZ_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="220dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/magnetic_z_coordinate"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/magY_text"
-        app:layout_constraintVertical_bias="0.802" />
-
-    <TextView
-        android:id="@+id/magX_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="136dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/magnetic_x_coordinate"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_textview" />
-
-    <TextView
-        android:id="@+id/magY_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/magnetic_y_coordinate"
-        android:textSize="17sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/magX_text" />
 
     <TextView
         android:id="@+id/welcome_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/roboto"
         android:text="@string/magnetic_text"
         android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="25sp" />
 
-    <TextView
-        android:id="@+id/valMag_Z"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/linearLayout_X"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="220dp"
-        android:fontFamily="@font/roboto"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valMag_Y"
-        app:layout_constraintVertical_bias="0.772" />
+        android:gravity="left"
+        android:layout_marginTop="70dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/valMag_X"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/magX_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginLeft="30dp"
+            android:text="@string/magnetic_x_coordinate"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/valMag_X"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginLeft="40dp"
+            android:text="TextView"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Y"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="48dp"
-        android:fontFamily="@font/roboto"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_textview" />
+        android:gravity="left"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/valMag_Y"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/magY_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginLeft="30dp"
+            android:text="@string/magnetic_y_coordinate"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/valMag_Y"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginLeft="40dp"
+            android:text="TextView"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Z"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="44dp"
-        android:fontFamily="@font/roboto"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valMag_X" />
+        android:gravity="left"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/magZ_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginLeft="30dp"
+            android:text="@string/magnetic_z_coordinate"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/valMag_Z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:layout_marginLeft="40dp"
+            android:text="TextView"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

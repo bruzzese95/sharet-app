@@ -41,6 +41,7 @@ class SharedResourceViewModel(
 
             val userDto = SharedResourceApi.retrofitService.getUserWithIdTokenAsync(user_uid!!).await()
             idUser = userDto.idUser
+            sharedPreferences?.edit()?.putInt("idUser", idUser)?.apply()
             onStarting()
         }
     }

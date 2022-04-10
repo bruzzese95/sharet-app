@@ -143,7 +143,7 @@ class LoginFragment : Fragment() {
 
                         val userToDB = UserEntity()
                         userToDB.idToken = user.uid
-                        userToDB.idUser = Random.nextInt(1, 10000)
+                        userToDB.idUser = Random.nextInt(1000, 10000)
                         userToDB.name = user.displayName!!
                         userToDB.email = user.email!!
 

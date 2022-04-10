@@ -147,6 +147,7 @@ class SharedResourceFragment : Fragment() {
             }
         }
 
+        binding.idUser.text = sharedPref?.getInt("idUser", 0).toString()
 
         return binding.root
     }
