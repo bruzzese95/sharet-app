@@ -23,11 +23,11 @@ constructor(context: Context,
         xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
     }
     // gradient colors
-    private val green = Color.GREEN
+    private val color = R.color.purple_700
     // solid green in the center, transparent green at the edges
     private val gradientColors =
-        intArrayOf(green, modifyAlpha(green, 0.80f),
-            modifyAlpha(green, 0.05f))
+        intArrayOf(color, modifyAlpha(color, 0.80f),
+            modifyAlpha(color, 0.05f))
     private val gradientMatrix = Matrix()
     val tiltSensor = WaveTiltSensor(context)
 
